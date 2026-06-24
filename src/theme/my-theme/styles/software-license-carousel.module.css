@@ -1,0 +1,920 @@
+@import url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap');
+
+.licenseSection {
+  --frame-max: 1440px;
+
+  --content-max: 1176px;
+  --pad-x-max: calc((var(--frame-max) - var(--content-max)) / 2);
+
+  --pad-x: clamp(20px, 9.1667vw, var(--pad-x-max));
+  --pad-y: clamp(40px, 5.5556vw, 80px);
+
+  --grid-gap: clamp(8px, 0.8333vw, 12px);
+  --section-gap: clamp(20px, 1.9444vw, 28px);
+
+  --top-logo-desc-gap: clamp(6px, 0.5556vw, 8px);
+  --desc-link-gap: clamp(6px, 0.5556vw, 8px);
+  --card-logo-gap-min: clamp(72px, 7.2222vw, 104px);
+
+  --card-max: calc((var(--content-max) - (var(--grid-gap) * 2)) / 3);
+
+  --card-content-max: 324px;
+  --card-content-x: clamp(24px, 2.2917vw, 33px);
+
+  --top-logo-max: 269px;
+  --button-max: 190px;
+  --logo-frame-max: 200px;
+
+  width: 100%;
+  background: #ffffff;
+  font-family: 'Be Vietnam Pro', Arial, sans-serif;
+  overflow: hidden;
+}
+
+.container {
+  width: calc(100% - (var(--pad-x) * 2));
+  max-width: var(--content-max);
+
+  margin-inline: auto;
+  padding-block: var(--pad-y);
+  padding-inline: 0;
+
+  box-sizing: border-box;
+
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: var(--grid-gap);
+  row-gap: var(--section-gap);
+}
+.header {
+  grid-column: 1 / -1;
+
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: var(--grid-gap);
+  row-gap: clamp(6px, 0.5556vw, 8px);
+
+  width: 100%;
+  margin: 0;
+}
+
+.headingTitle {
+  grid-column: 1 / 11;
+  grid-row: 1;
+
+  width: 100%;
+  max-width: 1052px;
+
+  margin: 0;
+
+  font-family: 'Be Vietnam Pro', Arial, sans-serif;
+  color: #0c1c46;
+
+  font-size: clamp(28px, 2.7778vw, 40px);
+  line-height: 1.3;
+  font-weight: 700;
+  letter-spacing: 0;
+}
+
+.headingSubtitle {
+  grid-column: 1 / 11;
+  grid-row: 2;
+
+  width: 100%;
+  max-width: 1052px;
+
+  margin: 0;
+
+  font-family: 'Be Vietnam Pro', Arial, sans-serif;
+  color: #0c1c46;
+
+  font-size: clamp(14px, 1.3889vw, 20px);
+  line-height: 1.4;
+  font-weight: 600;
+  letter-spacing: 0;
+}
+
+.actions {
+  grid-column: 11 / -1;
+  grid-row: 1 / 3;
+
+  justify-self: end;
+  align-self: start;
+
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+
+  width: 100%;
+  max-width: 112px;
+
+  gap: var(--grid-gap);
+  padding-top: clamp(8px, 0.9028vw, 13px);
+}
+
+.arrowButton {
+  flex: 1 1 0;
+  min-width: 0;
+
+  width: 100%;
+  max-width: 50px;
+  aspect-ratio: 1;
+
+  border: 0;
+  border-radius: 999px;
+  background: #f1f4f8;
+  color: #0c1c46;
+
+  display: grid;
+  place-items: center;
+
+  padding: 0;
+  cursor: pointer;
+
+  transition:
+    transform 0.2s ease,
+    background-color 0.2s ease;
+}
+
+.arrowIcon {
+  display: block;
+
+  font-family: 'Be Vietnam Pro', Arial, sans-serif;
+  font-size: clamp(22px, 1.6667vw, 24px);
+  line-height: 1;
+  font-weight: 500;
+
+  color: #0c1c46;
+  transform: translateY(-1px);
+}
+
+.arrowButton:hover {
+  background: #e7edf5;
+  transform: translateY(-1px);
+}
+
+.track {
+  grid-column: 1 / -1;
+
+  display: flex;
+  align-items: stretch;
+  gap: var(--grid-gap);
+
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
+
+  padding-right: var(--pad-x);
+  margin-right: calc(-1 * var(--pad-x));
+  box-sizing: content-box;
+
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-behavior: smooth;
+  scroll-snap-type: x mandatory;
+
+  padding-bottom: 8px;
+  scrollbar-width: none;
+}
+
+.track::-webkit-scrollbar {
+  display: none;
+}
+
+.card {
+  position: relative;
+
+  --card-base-width: calc((var(--content-max) - (var(--grid-gap) * 2)) / 3);
+
+  flex: 0 0 var(--card-base-width);
+  min-width: var(--card-base-width);
+
+  min-height: calc(var(--card-base-width) * 570 / 390);
+
+  display: grid;
+  grid-template-rows:
+    auto
+    minmax(var(--card-logo-gap-min), 1fr)
+    auto;
+
+  border-radius: clamp(14px, 1.25vw, 18px);
+  overflow: hidden;
+
+  scroll-snap-align: start;
+  color: #ffffff;
+  box-sizing: border-box;
+  isolation: isolate;
+
+  --circle-border: #e5e8f0;
+  --circle-ring-small: rgba(236, 242, 251, 0.7);
+  --circle-ring-large: rgba(240, 246, 255, 0.6);
+}
+.card::before {
+  content: '';
+  position: absolute;
+  z-index: 1;
+
+  left: 50%;
+  bottom: clamp(-260px, -15.5556vw, -140px);
+
+  width: 154.1026%;
+  max-width: 601px;
+  aspect-ratio: 1;
+
+  transform: translateX(-50%);
+
+  border-radius: 50%;
+  background: var(--card-blur-color, #234371);
+
+  filter: blur(clamp(80px, 15.5556vw, 224px));
+  mix-blend-mode: var(--card-blur-blend, hard-light);
+  opacity: var(--card-blur-opacity, 0.55);
+
+  pointer-events: none;
+}
+
+.blueCard {
+  background: linear-gradient(180deg, #348cf5 0%, #125be0 100%);
+  --circle-ring-small: rgba(236, 242, 251, 0.7);
+  --circle-ring-large: rgba(240, 246, 255, 0.6);
+
+  --card-blur-color: #234371;
+  --card-blur-opacity: 0.55;
+  --card-blur-blend: hard-light;
+}
+
+.cyanCard {
+  background: linear-gradient(180deg, #17a8cd 0%, #076cc5 100%);
+  --circle-ring-small: rgba(236, 242, 251, 0.7);
+  --circle-ring-large: rgba(240, 246, 255, 0.6);
+
+  --card-blur-color: #123f66;
+  --card-blur-opacity: 0.45;
+  --card-blur-blend: hard-light;
+}
+
+.purpleCard {
+  background: linear-gradient(180deg, #6d3b7e 0%, #731f83 100%);
+  --circle-ring-small: rgba(236, 242, 251, 0.45);
+  --circle-ring-large: rgba(240, 246, 255, 0.35);
+
+  --card-blur-color: #30143d;
+  --card-blur-opacity: 0.45;
+  --card-blur-blend: hard-light;
+}
+
+.lightCard {
+  background: linear-gradient(180deg, #fffaf7 0%, #edf2f2 100%);
+  color: #0c1c46;
+  --circle-ring-small: rgba(236, 242, 251, 0.7);
+  --circle-ring-large: rgba(240, 246, 255, 0.6);
+
+  --card-blur-color: #d7e2e8;
+  --card-blur-opacity: 0.55;
+  --card-blur-blend: multiply;
+}
+
+.cardContent {
+  position: relative;
+  z-index: 2;
+  grid-row: 1;
+
+  --content-x: clamp(24px, calc((100% - var(--card-content-max)) / 2), 33px);
+
+  width: min(var(--card-content-max), calc(100% - (var(--content-x) * 2)));
+
+  margin-inline-start: var(--content-x);
+  margin-block-start: clamp(32px, 3.3333vw, 35px);
+
+  padding: 0;
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0;
+
+  box-sizing: border-box;
+}
+
+.topLogoBox {
+  flex: 0 0 auto;
+
+  width: 83.0247%;
+  max-width: var(--top-logo-max);
+  aspect-ratio: 269 / 94;
+
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+
+  margin: 0;
+  margin-block-end: var(--top-logo-desc-gap);
+
+  padding: 0;
+  overflow: visible;
+  box-sizing: border-box;
+}
+
+.topLogo {
+  width: var(--top-logo-img-width, auto);
+  max-width: var(--top-logo-img-max, 100%);
+  max-height: var(--top-logo-img-height, 100%);
+
+  height: auto;
+  object-fit: contain;
+  object-position: left center;
+  display: block;
+}
+
+.mainLogo {
+  width: var(--main-logo-width, 54%);
+  height: var(--main-logo-height, auto);
+
+  max-width: var(--main-logo-max-width, 108px);
+  max-height: var(--main-logo-max-height, 108px);
+
+  object-fit: contain;
+  display: block;
+}
+
+.card:nth-child(1) {
+  --top-logo-img-width: 100%;
+  --top-logo-img-max: 269px;
+  --top-logo-img-height: 100%;
+}
+
+.card:nth-child(2) {
+  --top-logo-img-width: 67.66%;
+  --top-logo-img-max: 182px;
+  --top-logo-img-height: 57.45%;
+}
+
+.card:nth-child(3) {
+  --top-logo-img-width: 57.62%;
+  --top-logo-img-max: 155px;
+  --top-logo-img-height: 61.7%;
+}
+
+.card:nth-child(4) {
+  color: #0c1c46;
+
+  --top-logo-img-width: 72%;
+  --top-logo-img-max: 194px;
+  --top-logo-img-height: 58%;
+
+  --main-logo-width: 54%;
+  --main-logo-max: 108px;
+  --main-logo-height: 54%;
+}
+
+.desc {
+  margin: 0 0 var(--desc-link-gap);
+
+  width: 100%;
+  max-width: var(--card-content-max);
+
+  font-family: 'Be Vietnam Pro', Arial, sans-serif;
+  font-size: clamp(15px, 1.25vw, 18px);
+  line-height: 1.5;
+  font-weight: 400;
+  letter-spacing: 0;
+
+  color: currentColor;
+
+  min-block-size: clamp(54px, 5.625vw, 81px);
+}
+
+.link {
+  margin: 0;
+
+  width: fit-content;
+  max-width: var(--button-max);
+
+  color: currentColor;
+  text-decoration: none;
+
+  font-family: 'Be Vietnam Pro', Arial, sans-serif;
+  font-size: clamp(14px, 1.1111vw, 16px);
+  line-height: 1.5;
+  font-weight: 600;
+  letter-spacing: 0;
+  text-transform: uppercase;
+
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+
+  white-space: nowrap;
+}
+
+.link span {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: clamp(16px, 1.25vw, 18px);
+  line-height: 1;
+  font-weight: 400;
+
+  transform: translateY(-1px);
+}
+
+.logoFrame {
+  position: relative;
+  z-index: 2;
+  grid-row: 3;
+
+  width: 51.2821%;
+  max-width: var(--logo-frame-max);
+  aspect-ratio: 1;
+
+  margin-inline: auto;
+  margin-top: 0;
+
+  margin-bottom: clamp(-18px, -1.1111vw, -12px);
+
+  transform: none;
+  box-sizing: border-box;
+}
+
+.logoCircle {
+  width: 100%;
+  max-width: 200px;
+  aspect-ratio: 1;
+
+  border-radius: 50%;
+
+  background: linear-gradient(180deg, #ffffff 0%, #eaedf3 100%);
+  border: clamp(4px, 0.4167vw, 6px) solid var(--circle-border);
+
+  display: grid;
+  place-items: center;
+
+  box-shadow:
+    0 0 0 clamp(12px, 1.1806vw, 17px) var(--circle-ring-small),
+    0 0 0 clamp(28px, 2.7778vw, 40px) var(--circle-ring-large);
+
+  box-sizing: border-box;
+}
+
+.lightCard .logoCircle {
+  background: rgba(255, 255, 255, 0.78);
+  box-shadow:
+    0 0 0 clamp(16px, 1.8056vw, 26px) rgba(232, 239, 242, 0.72),
+    0 0 0 clamp(34px, 3.75vw, 54px) rgba(217, 226, 230, 0.55);
+}
+
+@media (max-width: 1024px) {
+  .licenseSection {
+    --pad-x: clamp(32px, 6vw, 72px);
+    --pad-y: clamp(48px, 6vw, 64px);
+    --grid-gap: clamp(10px, 1.2vw, 14px);
+    --section-gap: clamp(24px, 3vw, 32px);
+    --card-logo-gap-min: clamp(56px, 8vw, 88px);
+
+    --content-max: 100%;
+    --card-content-max: 300px;
+    --top-logo-max: 245px;
+    --logo-frame-max: 180px;
+  }
+
+  .container {
+    width: calc(100% - (var(--pad-x) * 2));
+    max-width: var(--content-max);
+
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    column-gap: var(--grid-gap);
+    row-gap: var(--section-gap);
+  }
+
+  .header {
+    grid-column: 1 / -1;
+    align-items: flex-start;
+  }
+
+  .headingBox {
+    max-width: calc(100% - 124px);
+  }
+
+  .headingBox h2 {
+    font-size: clamp(30px, 4vw, 38px);
+    line-height: 1.22;
+  }
+
+  .headingBox p {
+    font-size: clamp(16px, 2vw, 19px);
+    line-height: 1.35;
+  }
+
+  .actions {
+    max-width: 104px;
+    padding-top: clamp(6px, 1vw, 10px);
+  }
+
+  .arrowButton {
+    max-width: 46px;
+  }
+
+  .track {
+    grid-column: 1 / -1;
+
+    padding-right: var(--pad-x);
+    margin-right: calc(-1 * var(--pad-x));
+  }
+
+  .card {
+    --card-base-width: clamp(
+      300px,
+      calc((100% - var(--grid-gap)) / 2),
+      var(--card-max)
+    );
+
+    flex: 0 0 var(--card-base-width);
+    min-width: var(--card-base-width);
+    min-height: calc(var(--card-base-width) * 570 / 390);
+  }
+
+  .cardContent {
+    --content-x: clamp(24px, calc((100% - var(--card-content-max)) / 2), 30px);
+
+    margin-block-start: clamp(28px, 3.5vw, 34px);
+  }
+
+  .desc {
+    font-size: clamp(15px, 1.8vw, 17px);
+    line-height: 1.45;
+    min-block-size: clamp(58px, 8vw, 76px);
+  }
+
+  .link {
+    font-size: clamp(14px, 1.6vw, 15px);
+  }
+
+  .logoFrame {
+    width: 50%;
+    max-width: var(--logo-frame-max);
+    margin-bottom: clamp(-16px, -4vw, -10px);
+  }
+}
+
+.mobileDots {
+  display: none;
+}
+
+@media (max-width: 640px) {
+  .licenseSection {
+    width: 100vw;
+    margin-left: calc(50% - 50vw);
+    margin-right: calc(50% - 50vw);
+
+    --pad-x: clamp(12px, 3.4667vw, 13px);
+    --pad-y: clamp(42px, 12vw, 50px);
+
+    --grid-gap: clamp(14px, 4vw, 15px);
+    --card-gap: clamp(9px, 2.6667vw, 10px);
+    --section-gap: clamp(14px, 4.2667vw, 16px);
+
+    --mobile-card-width: clamp(238px, 68.8vw, 258px);
+    --mobile-card-height: calc(var(--mobile-card-width) * 410 / 258);
+
+    --mobile-card-padding-x: clamp(28px, 8vw, 30px);
+    --mobile-card-padding-top: clamp(30px, 8vw, 30px);
+
+    --mobile-logo-size: clamp(112px, 32vw, 120px);
+  }
+
+  .container {
+    width: 100%;
+    max-width: 100vw;
+
+    margin: 0 auto;
+    padding-block: var(--pad-y);
+    padding-inline: var(--pad-x);
+
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    column-gap: var(--grid-gap);
+    row-gap: var(--section-gap);
+
+    box-sizing: border-box;
+    overflow: hidden;
+  }
+
+  .header {
+    grid-column: 1 / -1;
+
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    column-gap: var(--grid-gap);
+    row-gap: clamp(10px, 3.2vw, 12px);
+
+    width: 100%;
+    margin: 0;
+
+    text-align: center;
+    justify-items: center;
+  }
+
+  .headingTitle,
+  .headingSubtitle {
+    grid-column: 1 / -1;
+
+    width: 100%;
+    max-width: 100%;
+
+    margin: 0;
+
+    color: #0c1c46;
+    text-align: center;
+    letter-spacing: 0;
+  }
+
+  .headingTitle {
+    font-size: clamp(22px, 6.4vw, 24px);
+    line-height: 1.25;
+    font-weight: 700;
+  }
+
+  .headingSubtitle {
+    font-size: clamp(15px, 4.2667vw, 16px);
+    line-height: 1.25;
+    font-weight: 600;
+  }
+
+  .actions {
+    display: none;
+  }
+
+  .track {
+    grid-column: 1 / -1;
+
+    display: flex;
+    align-items: flex-start;
+    gap: var(--card-gap);
+
+    width: calc(100% + (var(--pad-x) * 2));
+    max-width: none;
+
+    margin-left: calc(-1 * var(--pad-x));
+    margin-right: calc(-1 * var(--pad-x));
+
+    padding-left: var(--pad-x);
+    padding-right: var(--pad-x);
+    padding-top: 0;
+    padding-bottom: 0;
+
+    overflow-x: auto;
+    overflow-y: hidden;
+
+    scroll-snap-type: x mandatory;
+    scroll-padding-left: var(--pad-x);
+    scroll-padding-right: var(--pad-x);
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+
+    box-sizing: border-box;
+    touch-action: pan-x;
+  }
+
+  .track::-webkit-scrollbar {
+    display: none;
+  }
+
+  .card {
+    flex: 0 0 var(--mobile-card-width);
+    width: var(--mobile-card-width);
+    min-width: var(--mobile-card-width);
+
+    height: var(--mobile-card-height);
+    min-height: 0;
+    max-height: var(--mobile-card-height);
+
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+
+    border-radius: clamp(18px, 5.3333vw, 20px);
+    overflow: hidden;
+
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+  }
+
+  .cardContent {
+    position: relative;
+    z-index: 2;
+    grid-row: 1;
+
+    width: calc(100% - (var(--mobile-card-padding-x) * 2));
+
+    margin-inline-start: var(--mobile-card-padding-x);
+    margin-block-start: var(--mobile-card-padding-top);
+
+    padding: 0;
+
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0;
+
+    box-sizing: border-box;
+  }
+
+  .topLogoBox {
+    width: calc(100% + 2px);
+    max-width: clamp(190px, 53.3333vw, 200px);
+
+    margin: 0 0 clamp(10px, 3.2vw, 12px);
+    padding: 0;
+
+    aspect-ratio: 200 / 70;
+
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+
+    overflow: visible;
+    box-sizing: border-box;
+  }
+
+  .topLogo {
+    object-position: left center;
+    transform: translateY(2px);
+  }
+  .desc {
+    width: 100%;
+    max-width: 100%;
+
+    margin: 0 0 clamp(14px, 4vw, 15px);
+
+    font-size: clamp(16px, 4.2667vw, 16px);
+    line-height: 1.5;
+    font-weight: 400;
+
+    min-block-size: clamp(96px, 25.6vw, 96px);
+  }
+
+  .link {
+    margin: 0;
+
+    width: fit-content;
+    max-width: 190px;
+
+    font-size: clamp(16px, 4.2667vw, 16px);
+    line-height: 1.5;
+    font-weight: 600;
+
+    white-space: nowrap;
+  }
+
+  .link {
+    margin: clamp(-8px, -2.1333vw, -6px) 0 0;
+
+    width: fit-content;
+    max-width: 190px;
+
+    font-size: clamp(16px, 4.2667vw, 16px);
+    line-height: 1.5;
+    font-weight: 600;
+
+    white-space: nowrap;
+  }
+
+  .logoFrame {
+    position: relative;
+    z-index: 2;
+    grid-row: 3;
+
+    width: var(--mobile-logo-size);
+    max-width: none;
+    aspect-ratio: 1;
+
+    margin-inline: auto;
+    margin-bottom: clamp(-10px, -2.6667vw, -8px);
+
+    transform: none;
+    box-sizing: border-box;
+  }
+
+  .logoCircle {
+    width: 100%;
+    max-width: none;
+    aspect-ratio: 1;
+
+    border-radius: 50%;
+
+    border-width: clamp(4px, 1.28vw, 5px);
+
+    display: grid;
+    place-items: center;
+
+    box-shadow:
+      0 0 0 clamp(10px, 3.2vw, 12px) var(--circle-ring-small),
+      0 0 0 clamp(22px, 6.4vw, 24px) var(--circle-ring-large);
+
+    box-sizing: border-box;
+  }
+
+  .mainLogo {
+    width: var(--main-logo-width, 55%);
+    height: auto;
+
+    max-width: var(--main-logo-max-width, 70px);
+    max-height: var(--main-logo-max-height, 74px);
+
+    object-fit: contain;
+    display: block;
+  }
+
+  .card::before {
+    content: '';
+    position: absolute;
+    z-index: 1;
+
+    left: 50%;
+    bottom: clamp(-150px, -38vw, -135px);
+
+    width: clamp(390px, 106vw, 420px);
+    max-width: none;
+    aspect-ratio: 1;
+
+    transform: translateX(-50%);
+
+    border-radius: 50%;
+    background: radial-gradient(
+      circle,
+      rgba(35, 67, 113, 0.72) 0%,
+      rgba(35, 67, 113, 0.45) 42%,
+      rgba(35, 67, 113, 0) 72%
+    );
+
+    filter: blur(clamp(44px, 14vw, 56px));
+    mix-blend-mode: hard-light;
+    opacity: 0.9;
+
+    pointer-events: none;
+  }
+
+  .mobileDots {
+    grid-column: 1 / -1;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    width: fit-content;
+    max-width: 100%;
+    justify-self: center;
+
+    gap: clamp(14px, 4.2667vw, 16px);
+
+    margin: 0;
+    margin-top: clamp(18px, 5.3333vw, 20px);
+
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  .mobileDots .dot {
+    flex: 0 0 auto;
+
+    width: clamp(8px, 2.6667vw, 10px);
+    height: clamp(8px, 2.6667vw, 10px);
+
+    border: 0;
+    border-radius: 999px;
+
+    background: rgba(12, 28, 70, 0.2);
+
+    padding: 0;
+    margin: 0;
+
+    appearance: none;
+    cursor: pointer;
+    box-sizing: border-box;
+  }
+
+  .mobileDots .dot.dotActive {
+    width: clamp(18px, 5.3333vw, 20px);
+    height: clamp(18px, 5.3333vw, 20px);
+
+    background: #ffffff;
+    border: clamp(4px, 1.3333vw, 5px) solid #ffc41a;
+  }
+  .track {
+    position: relative;
+  }
+
+  .mobileDots {
+    position: relative;
+    z-index: 20;
+    pointer-events: auto;
+  }
+
+  .dot {
+    pointer-events: auto;
+  }
+  .card {
+    scroll-margin-left: 0;
+  }
+}
