@@ -9,8 +9,8 @@
   max-inline-size: none;
 
   block-size: var(--top-header-height, clamp(68px, 5.277cqi, 76px));
-  min-block-size: clamp(68px, 5.277cqi, 76px);
-  max-block-size: 76px;
+  min-block-size: var(--top-header-height, clamp(68px, 5.277cqi, 76px));
+  max-block-size: var(--top-header-height, 76px);
 
   transform: translateX(-50%);
 
@@ -20,12 +20,26 @@
   pointer-events: none;
   overflow: visible;
 
-  --top-header-hover-height: clamp(104px, 8.125vw, 117px);
-  --top-header-hover-offset-y: clamp(18px, 1.458vw, 21px);
-  --top-header-hover-bleed-x: 0px;
+  --top-header-hover-height: var(
+    --top-header-hover-height-config,
+    clamp(104px, 8.125vw, 117px)
+  );
 
-  --top-header-dropdown-gap: clamp(4px, 0.416cqi, 6px);
-  --top-header-dropdown-offset-y: clamp(34px, 2.75cqi, 40px);
+  --top-header-hover-offset-y: var(
+    --top-header-hover-offset-y-config,
+    clamp(18px, 1.458vw, 21px)
+  );
+
+  --top-header-dropdown-gap: var(
+    --top-header-dropdown-gap-config,
+    clamp(4px, 0.416cqi, 6px)
+  );
+
+  --top-header-dropdown-offset-y: var(
+    --top-header-dropdown-offset-y-config,
+    clamp(34px, 2.75cqi, 40px)
+  );
+
   --top-header-dropdown-content-width: clamp(220px, 16.666cqi, 240px);
   --top-header-dropdown-width: calc(
     var(--top-header-dropdown-content-width) +
@@ -43,24 +57,24 @@
   position: absolute;
 
   inset-block-start: calc(-1 * var(--top-header-hover-offset-y));
-  inset-inline-start: 0;
+  inset-inline-start: 50%;
 
-  inline-size: 100%;
-  min-inline-size: 100%;
-  max-inline-size: 100%;
+  inline-size: 100vw;
+  min-inline-size: 100vw;
+  max-inline-size: none;
 
   block-size: var(--top-header-hover-height);
   min-block-size: var(--top-header-hover-height);
-  max-block-size: clamp(94px, 7.5vw, 110px);
+  max-block-size: var(--top-header-hover-height);
 
   background: #ffffff;
-  border-block-end: 0;
+  border-block-end: var(--top-header-hover-border-bottom, 0);
 
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
 
-  transform: none;
+  transform: translateX(-50%);
 
   transition:
     opacity 160ms ease,
@@ -69,7 +83,8 @@
   z-index: 1;
 }
 
-.topHeaderWrap:has(.topHeaderNavItemHasDropdown:hover)::before {
+.topHeaderWrap:has(.topHeaderNavItemHasDropdown:hover)::before,
+.topHeaderWrap:has(.topHeaderNavItemHasDropdown:focus-within)::before {
   opacity: 1;
   visibility: visible;
 }
@@ -81,13 +96,16 @@
 
   box-sizing: border-box;
 
-  inline-size: min(calc(100% - clamp(64px, 18.75cqi, 270px)), 1170px);
+  inline-size: var(
+    --top-header-bar-width,
+    min(calc(100% - clamp(64px, 18.75cqi, 270px)), 1170px)
+  );
   min-inline-size: 0;
-  max-inline-size: 1170px;
+  max-inline-size: var(--top-header-bar-max-width, 1170px);
 
   block-size: var(--top-header-height, clamp(68px, 5.277cqi, 76px));
-  min-block-size: clamp(68px, 5.277cqi, 76px);
-  max-block-size: 76px;
+  min-block-size: var(--top-header-height, clamp(68px, 5.277cqi, 76px));
+  max-block-size: var(--top-header-height, 76px);
 
   display: flex;
   align-items: center;
@@ -104,7 +122,10 @@
   background: transparent;
   box-shadow: none;
 
-  --top-header-shift-x: clamp(-3.8px, -0.24cqi, -1px);
+  --top-header-shift-x: var(
+    --top-header-shift-x-config,
+    clamp(-3.8px, -0.24cqi, -1px)
+  );
 
   margin-inline: auto;
   transform: translateX(var(--top-header-shift-x));
@@ -113,6 +134,7 @@
   z-index: 2;
   overflow: visible;
 }
+
 .topHeaderMainGroup {
   inline-size: fit-content;
   min-inline-size: 0;
@@ -430,7 +452,8 @@
   z-index: 60;
 }
 
-.topHeaderNavItemHasDropdown:hover .topHeaderDropdown {
+.topHeaderNavItemHasDropdown:hover .topHeaderDropdown,
+.topHeaderNavItemHasDropdown:focus-within .topHeaderDropdown {
   opacity: 1;
   visibility: visible;
   pointer-events: auto;
@@ -1968,12 +1991,12 @@
     inset-inline-start: 0;
     inset-block-start: 50%;
 
-    inline-size: clamp(16px, 4.66cqi, 16px);
-    min-inline-size: clamp(16px, 4.66cqi, 16px);
+    inline-size: clamp(16px, 4.266cqi, 16px);
+    min-inline-size: clamp(16px, 4.266cqi, 16px);
     max-inline-size: 16px;
 
-    block-size: clamp(18px, 5.24cqi, 18px);
-    min-block-size: clamp(18px, 5.24cqi, 18px);
+    block-size: clamp(18px, 4.8cqi, 18px);
+    min-block-size: clamp(18px, 4.8cqi, 18px);
     max-block-size: 18px;
 
     display: inline-flex;
@@ -1994,21 +2017,13 @@
   .topHeaderMobileToggle::before,
   .topHeaderMobileToggle::after,
   .topHeaderMobileToggle span {
-    content: '';
-
-    inline-size: clamp(16px, 4.66cqi, 16px);
-    min-inline-size: clamp(16px, 4.66cqi, 16px);
+    inline-size: clamp(15px, 4.266cqi, 16px);
+    min-inline-size: clamp(15px, 4.266cqi, 16px);
     max-inline-size: 16px;
 
-    block-size: clamp(2px, 0.58cqi, 2px);
-    min-block-size: clamp(2px, 0.58cqi, 2px);
+    block-size: clamp(1.8px, 0.533cqi, 2px);
+    min-block-size: clamp(1.8px, 0.533cqi, 2px);
     max-block-size: 2px;
-
-    position: absolute;
-    inset-inline-start: 0;
-
-    border-radius: 999px;
-    background: currentColor;
   }
 
   .topHeaderMobileToggle::before {
@@ -2025,16 +2040,16 @@
   }
 
   .topHeaderLogo {
-    inline-size: clamp(120px, 40.71cqi, 139.64px);
-    min-inline-size: clamp(120px, 40.71cqi, 139.64px);
+    inline-size: clamp(128px, 37.237cqi, 139.64px);
+    min-inline-size: clamp(128px, 37.237cqi, 139.64px);
     max-inline-size: 139.64px;
 
-    block-size: auto;
-    min-block-size: clamp(21px, 6.99cqi, 24px);
+    block-size: clamp(22px, 6.4cqi, 24px);
+    min-block-size: clamp(22px, 6.4cqi, 24px);
     max-block-size: 24px;
 
-    margin: 0;
-    transform: none;
+    justify-content: center;
+    margin-inline-start: 0;
   }
 
   .topHeaderLogoImage {
@@ -2042,7 +2057,10 @@
     max-inline-size: 100%;
 
     block-size: auto;
-    max-block-size: clamp(21px, 6.99cqi, 24px);
+    max-block-size: clamp(22px, 6.4cqi, 24px);
+
+    object-fit: contain;
+    object-position: center center;
   }
 
   .topHeaderNav {
@@ -2241,9 +2259,9 @@
     inset-inline-start: 0;
     inset-block-start: 50%;
 
-    inline-size: clamp(18px, 5.247cqi, 18px);
-    min-inline-size: clamp(18px, 5.247cqi, 18px);
-    max-inline-size: 18px;
+    inline-size: clamp(16px, 4.266cqi, 16px);
+    min-inline-size: clamp(16px, 4.266cqi, 16px);
+    max-inline-size: 16px;
 
     block-size: clamp(18px, 5.247cqi, 18px);
     min-block-size: clamp(18px, 5.247cqi, 18px);
@@ -2269,9 +2287,9 @@
   .topHeaderMobileToggle span {
     content: '';
 
-    inline-size: clamp(18px, 5.247cqi, 18px);
-    min-inline-size: clamp(18px, 5.247cqi, 18px);
-    max-inline-size: 18px;
+    inline-size: clamp(16px, 4.266cqi, 16px);
+    min-inline-size: clamp(16px, 4.266cqi, 16px);
+    max-inline-size: 16px;
 
     block-size: clamp(2px, 0.583cqi, 2px);
     min-block-size: clamp(2px, 0.583cqi, 2px);

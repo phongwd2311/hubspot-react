@@ -1,0 +1,249 @@
+.section {
+  width: 100%;
+  background: #ffffff;
+  overflow: hidden;
+}
+
+.section,
+.section * {
+  box-sizing: border-box;
+}
+
+.frame {
+  width: min(100%, 1440px);
+  margin-inline: auto;
+
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: clamp(12px, 1.39vw, 20px);
+
+  padding-inline: clamp(20px, 16.32vw, 235px);
+  padding-block: clamp(36px, 3.47vw, 50px);
+}
+
+.partnerBlock {
+  grid-column: 1 / -1;
+
+  width: 100%;
+  min-width: 0;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  gap: clamp(16px, 1.39vw, 20px);
+}
+
+.eyebrow {
+  margin: 0;
+
+  color: #858da2;
+  font-family: 'Be Vietnam Pro', Arial, sans-serif;
+  font-size: clamp(12px, 1.11vw, 16px);
+  line-height: 1.25;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-align: center;
+
+  white-space: nowrap;
+
+  display: inline-block;
+  text-indent: 0.1em;
+}
+
+.logoRow {
+  width: 100%;
+  max-width: 970px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: clamp(20px, 3vw, 43.15px);
+  flex-wrap: nowrap;
+}
+
+.logoItem {
+  flex: 0 1 auto;
+  min-width: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logoImage {
+  display: block;
+
+  width: auto;
+  height: auto;
+
+  max-width: clamp(80px, 11.9vw, 171.25px);
+  max-height: clamp(24px, 2.53vw, 36.41px);
+
+  object-fit: contain;
+}
+
+/* Tablet */
+@media (max-width: 991px) {
+  .frame {
+    padding-inline: clamp(20px, 5vw, 48px);
+    padding-block: clamp(34px, 5vw, 46px);
+  }
+
+  .partnerBlock {
+    gap: clamp(14px, 2vw, 18px);
+  }
+
+  .eyebrow {
+    font-size: clamp(11px, 1.7vw, 14px);
+  }
+
+  .logoRow {
+    max-width: 100%;
+    gap: clamp(18px, 4vw, 32px);
+    flex-wrap: wrap;
+  }
+
+  .logoImage {
+    max-width: clamp(82px, 18vw, 150px);
+    max-height: clamp(22px, 3.2vw, 32px);
+  }
+}
+
+/* Mobile */
+@media (max-width: 575px) {
+  .section {
+    width: 100vw;
+    max-width: 100vw;
+
+    margin-left: calc(50% - 50vw);
+    margin-right: calc(50% - 50vw);
+
+    padding-inline: 0;
+    overflow: hidden;
+  }
+  .frame {
+    width: 100vw;
+    max-width: 100vw;
+    margin-inline: 0;
+
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    column-gap: clamp(8px, 3.2vw, 12px);
+
+    padding-inline: 0;
+    padding-block: clamp(28px, 8.8vw, 33px);
+
+    overflow: hidden;
+  }
+
+  .partnerBlock {
+    grid-column: 1 / -1;
+
+    width: 100%;
+    min-width: 0;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    gap: clamp(21px, 6.67vw, 25px);
+    overflow: hidden;
+  }
+
+  .eyebrow {
+    margin: 0;
+
+    width: 100%;
+    max-width: none;
+
+    color: #858da2;
+    font-family: 'Be Vietnam Pro', Arial, sans-serif;
+    font-size: clamp(12px, 3.73vw, 14px);
+    line-height: clamp(16px, 4.8vw, 18px);
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-align: center;
+
+    white-space: nowrap;
+
+    display: block;
+    text-indent: 0.1em;
+  }
+
+  .logoRow {
+    width: 100%;
+    max-width: none;
+    height: clamp(26px, 8vw, 30px);
+
+    align-self: stretch;
+
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+
+    gap: clamp(28px, 9.48vw, 35.56px);
+    flex-wrap: nowrap;
+
+    margin: 0;
+    padding-inline: 0;
+    overflow: visible;
+    transform: none;
+  }
+
+  .logoItem {
+    flex: 0 0 auto;
+    min-width: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .logoImage {
+    display: block;
+
+    width: 100%;
+    height: 100%;
+
+    max-width: none;
+    max-height: none;
+
+    object-fit: contain;
+  }
+
+  .logoItem:nth-child(1) {
+    width: clamp(103px, 37.63vw, 141.11px);
+    height: clamp(19.5px, 7.11vw, 26.67px);
+  }
+
+  .logoItem:nth-child(2) {
+    width: clamp(75px, 27.48vw, 103.06px);
+    height: clamp(17px, 6.22vw, 23.33px);
+  }
+
+  .logoItem:nth-child(3) {
+    width: clamp(70px, 25.56vw, 95.85px);
+    height: clamp(18px, 6.52vw, 24.44px);
+  }
+
+  .logoItem:nth-child(4) {
+    width: clamp(70px, 25.52vw, 95.68px);
+    height: clamp(18px, 6.52vw, 24.44px);
+  }
+
+  .logoItem:nth-child(5) {
+    width: clamp(70px, 25.52vw, 95.74px);
+    height: clamp(18px, 6.52vw, 24.44px);
+  }
+
+  .logoItem:nth-child(6) {
+    width: clamp(110px, 40.05vw, 150.19px);
+    height: clamp(19.5px, 7.11vw, 26.67px);
+  }
+}

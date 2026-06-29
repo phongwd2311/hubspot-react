@@ -1,0 +1,929 @@
+@import url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap');
+
+.section {
+  position: relative;
+  isolation: isolate;
+
+  inline-size: 100vw;
+  max-inline-size: 100vw;
+  min-inline-size: 0;
+
+  margin-inline: calc(50% - 50vw);
+
+  display: flex;
+  justify-content: center;
+
+  overflow-x: clip;
+  overflow-y: visible;
+
+  background: #f9f6ec;
+
+  container-type: inline-size;
+}
+
+.section *,
+.section *::before,
+.section *::after {
+  box-sizing: border-box;
+}
+
+.frame {
+  position: relative;
+  isolation: isolate;
+
+  --frame-max: 1440px;
+  --frame-height: clamp(720px, 60.486cqi, 871px);
+
+  --grid-columns: 12;
+  --grid-gap: 0px;
+
+  --visual-width: min(
+    calc(100% - clamp(80px, 15.7cqi, 226px)),
+    clamp(980px, 83.333cqi, 1200px)
+  );
+  --visual-height: clamp(520px, 44.444cqi, 640px);
+  --visual-top: clamp(258px, 22.5cqi, 324px);
+
+  --visual-group-offset-y: clamp(6px, 1.1cqi, 16px);
+  --visual-group-offset-x: clamp(4px, 0.75cqi, 10px);
+
+  --center-visual-width: clamp(430px, 43.166cqi, 518px);
+  --center-visual-height: clamp(254px, 25.5cqi, 306px);
+
+  --center-visual-visible-height: clamp(214px, 19.35cqi, 279px);
+
+  --center-visual-top: calc(
+    var(--frame-height) - var(--visual-top) -
+      var(--center-visual-visible-height)
+  );
+
+  --top-header-top: clamp(16px, 1.388cqi, 20px);
+  --top-header-height: clamp(68px, 5.277cqi, 76px);
+
+  --top-header-wrap-width: 100vw;
+  --top-header-wrap-max-width: none;
+
+  --top-header-bar-width: min(
+    calc(100vw - clamp(48px, 18.75cqi, 270px)),
+    1170px
+  );
+  --top-header-bar-max-width: 1170px;
+
+  --top-header-hover-bleed-x-config: 0px;
+  --top-header-shift-x-config: 0px;
+
+  --top-header-hover-height-config: clamp(104px, 8.125cqi, 117px);
+  --top-header-hover-offset-y-config: var(--top-header-top);
+  --top-header-hover-border-bottom: clamp(1px, 0.138cqi, 2px) solid #eff2f6;
+  --top-header-dropdown-offset-y-config: clamp(34px, 2.777cqi, 40px);
+
+  --hero-after-header-gap: clamp(58px, 6.805cqi, 98px);
+  --center-visual-offset-x: clamp(-10px, -0.74cqi, -6px);
+
+  --font-heading: 'Be Vietnam Pro', system-ui, -apple-system, BlinkMacSystemFont,
+    'Segoe UI', sans-serif;
+
+  inline-size: 100%;
+  max-inline-size: none;
+  min-block-size: var(--frame-height);
+
+  margin-inline: 0;
+
+  overflow: hidden;
+
+  font-family: var(--font-heading);
+}
+
+.backgroundImage {
+  position: absolute;
+  inset: 0;
+
+  inline-size: 100%;
+  block-size: 100%;
+
+  min-inline-size: 100%;
+  min-block-size: 100%;
+
+  object-fit: cover;
+  object-position: center top;
+
+  display: block;
+  pointer-events: none;
+  user-select: none;
+
+  z-index: 0;
+}
+
+.headerIsland {
+  display: contents;
+}
+
+.heroContent {
+  position: relative;
+  z-index: 4;
+
+  inline-size: 100%;
+  min-inline-size: 0;
+
+  padding-inline: 0;
+  padding-block-start: calc(
+    var(--top-header-top) + var(--top-header-height) +
+      var(--hero-after-header-gap)
+  );
+
+  display: grid;
+  grid-template-columns: repeat(var(--grid-columns), minmax(0, 1fr));
+  column-gap: var(--grid-gap);
+  align-content: start;
+
+  text-align: center;
+}
+
+.heading {
+  grid-column: 3 / 11;
+  justify-self: center;
+
+  inline-size: min(100%, clamp(760px, 63.47cqi, 914px));
+  min-inline-size: 0;
+
+  margin: 0 auto;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(10px, 1.25cqi, 18px);
+
+  font-family: var(--font-heading);
+  font-size: clamp(44px, 4.444cqi, 64px);
+  line-height: 1.2;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+
+  color: #0c1c46;
+}
+
+.headingLine {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  inline-size: auto;
+  min-inline-size: 0;
+  max-inline-size: 100%;
+
+  gap: clamp(10px, 1.25cqi, 18px);
+
+  white-space: nowrap;
+}
+
+.headingHighlight {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  inline-size: auto;
+  min-inline-size: clamp(220px, 22.222cqi, 320px);
+  max-inline-size: 320px;
+
+  min-block-size: clamp(58px, 6.736cqi, 97px);
+  max-block-size: 97px;
+
+  padding-block: clamp(8px, 0.694cqi, 10px);
+  padding-inline: clamp(16px, 1.388cqi, 20px);
+
+  border-radius: clamp(8px, 0.694cqi, 10px);
+
+  background: #ffc41a;
+  color: #0c1c46;
+
+  line-height: 1.2;
+}
+
+.subheading {
+  grid-column: 4 / 10;
+  justify-self: center;
+
+  inline-size: min(100%, clamp(480px, 41.666cqi, 600px));
+  min-inline-size: 0;
+
+  margin: clamp(14px, 1.25cqi, 18px) auto 0;
+
+  font-family: var(--font-heading);
+  font-size: clamp(18px, 1.666cqi, 24px);
+  line-height: 1.5;
+  font-weight: 400;
+  letter-spacing: 0;
+
+  color: #0c1c46;
+}
+
+.visualArea {
+  grid-column: 1 / -1;
+
+  position: absolute;
+  inset-inline-start: 50%;
+  inset-block-start: var(--visual-top);
+
+  inline-size: var(--visual-width);
+  min-inline-size: 0;
+  max-inline-size: var(--visual-width);
+
+  block-size: var(--visual-height);
+  min-block-size: var(--visual-height);
+  max-block-size: var(--visual-height);
+
+  margin: 0;
+
+  transform: translateX(calc(-50% + var(--visual-group-offset-x)))
+    translateY(var(--visual-group-offset-y));
+
+  pointer-events: none;
+  container-type: inline-size;
+
+  z-index: 3;
+}
+
+.floatingCard {
+  position: absolute;
+
+  inline-size: var(--card-size);
+  min-inline-size: var(--card-min-size);
+  max-inline-size: var(--card-max-size);
+
+  block-size: var(--card-size);
+  min-block-size: var(--card-min-size);
+  max-block-size: var(--card-max-size);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: var(--card-padding);
+
+  border-radius: var(--card-radius, clamp(14px, 1.56cqi, 22px));
+
+  background: rgba(255, 255, 255, 0.851);
+
+  box-shadow: 0 var(--card-shadow-y, clamp(3px, 0.33cqi, 4px))
+    var(--card-shadow-blur, clamp(42px, 5cqi, 60px)) rgba(0, 0, 0, 0.1);
+
+  backdrop-filter: blur(10px);
+
+  transform: rotate(var(--card-rotate));
+  transform-origin: center center;
+
+  z-index: var(--card-z, 3);
+}
+
+.floatingLogo {
+  inline-size: 100%;
+  block-size: 100%;
+
+  object-fit: contain;
+  object-position: center center;
+
+  display: block;
+
+  transform: rotate(var(--logo-rotate, 0deg)) scale(var(--logo-scale, 1));
+  transform-origin: center center;
+}
+
+.floatingText {
+  font-family: var(--font-heading);
+  font-size: clamp(20px, 1.944cqi, 28px);
+  line-height: 1;
+  font-weight: 800;
+
+  color: #0c1c46;
+}
+
+.cardGoogle {
+  --card-size: clamp(118px, 11.88cqi, 142.56px);
+  --card-min-size: 118px;
+  --card-max-size: 142.56px;
+  --card-padding: clamp(18px, 1.78cqi, 21.5px);
+  --card-radius: clamp(15px, 1.56cqi, 18.81px);
+
+  /* Đổi từ -16.27deg sang 16.27deg */
+  --card-rotate: 16.27deg;
+  --logo-rotate: 0deg;
+  --logo-scale: 1;
+
+  --card-shadow-y: clamp(3px, 0.28cqi, 3.42px);
+  --card-shadow-blur: clamp(42px, 4.275cqi, 51.3px);
+
+  inset-inline-start: 0;
+  inset-block-start: 0;
+}
+
+.cardAtlassian {
+  --card-size: clamp(148px, 14.654cqi, 175.85px);
+  --card-min-size: 148px;
+  --card-max-size: 175.85px;
+  --card-padding: clamp(26px, 2.625cqi, 31.5px);
+  --card-radius: clamp(15px, 1.541cqi, 18.5px);
+
+  --card-rotate: -13.33deg;
+  --logo-rotate: 0deg;
+  --logo-scale: 1;
+
+  --card-shadow-y: clamp(3px, 0.28cqi, 3.36px);
+  --card-shadow-blur: clamp(42px, 4.205cqi, 50.46px);
+
+  inset-inline-start: clamp(86px, 8.475cqi, 101.71px);
+  inset-block-start: clamp(178px, 18.416cqi, 221px);
+}
+
+.cardAi {
+  --card-size: clamp(196px, 19.468cqi, 233.62px);
+  --card-min-size: 196px;
+  --card-max-size: 233.62px;
+  --card-padding: clamp(24px, 2.466cqi, 29.6px);
+  --card-radius: clamp(18px, 1.833cqi, 22px);
+
+  --card-rotate: -6.5deg;
+  --logo-rotate: 0deg;
+  --logo-scale: 1;
+
+  --card-shadow-y: clamp(3px, 0.333cqi, 4px);
+  --card-shadow-blur: clamp(48px, 5cqi, 60px);
+
+  inset-inline-start: clamp(350px, 35.225cqi, 422.71px);
+  inset-block-start: clamp(150px, 15.495cqi, 185.94px);
+
+  z-index: 4;
+}
+
+.cardSalesforce {
+  --card-size: clamp(178px, 17.563cqi, 210.76px);
+  --card-min-size: 178px;
+  --card-max-size: 210.76px;
+  --card-padding: clamp(22px, 2.19cqi, 26.3px);
+  --card-radius: clamp(16px, 1.576cqi, 18.92px);
+
+  --card-rotate: 24.94deg;
+  --logo-rotate: 0deg;
+  --logo-scale: 1;
+
+  --card-shadow-y: clamp(3px, 0.286cqi, 3.44px);
+  --card-shadow-blur: clamp(42px, 4.299cqi, 51.59px);
+
+  inset-inline-start: clamp(652px, 65.6cqi, 788px);
+  inset-block-start: clamp(176px, 17.9cqi, 215px);
+
+  z-index: 4;
+}
+
+.cardSlack {
+  --card-size: clamp(118px, 11.743cqi, 140.92px);
+  --card-min-size: 118px;
+  --card-max-size: 140.92px;
+  --card-padding: clamp(20px, 1.991cqi, 23.9px);
+  --card-radius: clamp(15px, 1.578cqi, 18.94px);
+  --card-rotate: -23.52deg;
+  --card-shadow-y: clamp(3px, 0.286cqi, 3.44px);
+  --card-shadow-blur: clamp(42px, 4.304cqi, 51.65px);
+
+  inset-inline-start: clamp(868px, 85.2cqi, 1022px);
+  inset-block-start: clamp(39px, 3.8cqi, 46px);
+}
+
+.centerVisual {
+  position: absolute;
+
+  inset-inline-start: 50%;
+  inset-block-start: var(--center-visual-top);
+
+  inline-size: var(--center-visual-width);
+  min-inline-size: clamp(430px, 43.166cqi, 518px);
+  max-inline-size: 518px;
+
+  block-size: var(--center-visual-height);
+  min-block-size: clamp(254px, 25.5cqi, 306px);
+  max-block-size: 306px;
+
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+
+  transform: translateX(calc(-50% + var(--center-visual-offset-x)));
+
+  z-index: 6;
+  pointer-events: none;
+}
+
+.centerVisualImage {
+  inline-size: 100%;
+  block-size: auto;
+
+  max-inline-size: 100%;
+  max-block-size: 100%;
+
+  object-fit: contain;
+  object-position: center bottom;
+
+  display: block;
+}
+
+.centerVisualFallback {
+  inline-size: 100%;
+  block-size: 100%;
+
+  border-radius: clamp(32px, 3.333cqi, 40px) clamp(32px, 3.333cqi, 40px) 0 0;
+
+  border: clamp(4px, 0.5cqi, 6px) solid transparent;
+
+  background:
+    linear-gradient(#9fa9bf, #8f9aae) padding-box,
+    linear-gradient(180deg, #acb2cc 0%, #eaebee 100%) border-box;
+
+  box-shadow:
+    inset 0 clamp(8px, 1cqi, 12px) clamp(20px, 2.5cqi, 30px)
+      rgba(255, 255, 255, 0.14),
+    0 clamp(18px, 2cqi, 24px) clamp(34px, 4.166cqi, 50px) rgba(12, 28, 70, 0.16);
+
+  backdrop-filter: blur(40px);
+}
+.centerVisualImageDesktop {
+  display: block;
+}
+
+.centerVisualImageMobile {
+  display: none;
+}
+
+@media (max-width: 991px) {
+  .frame {
+    --frame-height: clamp(780px, 130vw, 1040px);
+
+    --visual-width: min(100%, clamp(620px, 92vw, 820px));
+    --visual-height: clamp(420px, 72vw, 560px);
+    --visual-top: clamp(360px, 55vw, 520px);
+
+    --top-header-top: clamp(14px, 4.267vw, 32px);
+    --top-header-height: clamp(52px, 13.333vw, 64px);
+    --hero-after-header-gap: clamp(42px, 10.667vw, 80px);
+    --center-visual-width: clamp(300px, 54vw, 440px);
+    --center-visual-height: clamp(160px, 36vw, 260px);
+    --center-visual-visible-height: clamp(120px, 24vw, 190px);
+    --center-visual-top: calc(
+      var(--frame-height) - var(--visual-top) -
+        var(--center-visual-visible-height)
+    );
+    --visual-group-offset-y: clamp(12px, 4vw, 32px);
+    --visual-group-offset-x: clamp(4px, 1.6vw, 12px);
+  }
+
+  .heroContent {
+    padding-inline: clamp(20px, 6.4vw, 48px);
+    padding-block-start: calc(
+      var(--top-header-top) + var(--top-header-height) +
+        var(--hero-after-header-gap)
+    );
+  }
+
+  .heading,
+  .subheading {
+    grid-column: 1 / -1;
+  }
+
+  .heading {
+    inline-size: min(100%, clamp(520px, 76vw, 720px));
+    font-size: clamp(34px, 8.533vw, 48px);
+    line-height: 1.18;
+  }
+
+  .headingLine {
+    flex-wrap: wrap;
+    gap: clamp(8px, 2.667vw, 14px);
+    white-space: normal;
+  }
+
+  .headingHighlight {
+    min-inline-size: auto;
+    max-inline-size: none;
+    min-block-size: auto;
+    max-block-size: none;
+
+    padding-block: clamp(6px, 1.6vw, 10px);
+    padding-inline: clamp(12px, 3.2vw, 18px);
+  }
+
+  .subheading {
+    font-size: clamp(15px, 4vw, 18px);
+    max-inline-size: 520px;
+  }
+
+  .cardGoogle {
+    inset-inline-start: 0;
+    inset-block-start: 0;
+  }
+
+  .cardAtlassian {
+    inset-inline-start: clamp(36px, 10vw, 82px);
+    inset-block-start: clamp(168px, 34vw, 220px);
+  }
+
+  .cardAi {
+    inset-inline-start: 50%;
+    inset-block-start: clamp(170px, 32vw, 230px);
+    transform: translateX(-50%) rotate(6.5deg);
+  }
+
+  .cardSalesforce {
+    inset-inline-start: clamp(410px, 68vw, 610px);
+    inset-block-start: clamp(168px, 34vw, 230px);
+  }
+
+  .cardSlack {
+    inset-inline-start: auto;
+    inset-inline-end: 0;
+    inset-block-start: clamp(18px, 5vw, 40px);
+  }
+
+  .centerVisual {
+    inset-block-start: var(--center-visual-top);
+
+    inline-size: var(--center-visual-width);
+    min-inline-size: 300px;
+    max-inline-size: 440px;
+
+    block-size: var(--center-visual-height);
+    min-block-size: 160px;
+    max-block-size: 260px;
+  }
+}
+
+@media (max-width: 640px) {
+  .frame {
+    --grid-columns: 4;
+
+    --mobile-frame-min: 320px;
+    --mobile-frame-max: 375px;
+
+    --frame-height: clamp(820px, 232.266cqi, 871px);
+
+    --top-header-top: clamp(8px, 2.4cqi, 10px);
+    --top-header-height: clamp(56px, 16cqi, 60px);
+    --hero-after-header-gap: clamp(16px, 4.8cqi, 18px);
+
+    --visual-width: clamp(354px, 110.47cqi, 414.27px);
+    --visual-height: clamp(440px, 137.33cqi, 515px);
+    --visual-top: clamp(336px, 104.8cqi, 393px);
+
+    --visual-group-offset-x: 0px;
+    --visual-group-offset-y: clamp(7px, 2.4cqi, 10px);
+
+    --center-visual-width: clamp(300px, 86.33cqi, 323.75px);
+    --center-visual-height: clamp(177px, 51cqi, 191.25px);
+
+    --center-visual-visible-height: clamp(190px, 57.5cqi, 224px);
+
+    --center-visual-offset-x: clamp(10px, 2.5cqi, 12px);
+
+    --center-visual-top: calc(
+      var(--frame-height) - var(--visual-top) -
+        var(--center-visual-visible-height)
+    );
+
+    inline-size: 100%;
+    max-inline-size: none;
+    min-block-size: var(--frame-height);
+  }
+
+  .heroContent {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+
+    padding-inline: clamp(14px, 3.733cqi, 16px);
+    padding-block-start: calc(
+      var(--top-header-top) + var(--top-header-height) +
+        var(--hero-after-header-gap)
+    );
+  }
+
+  .heading,
+  .subheading {
+    grid-column: 1 / -1;
+    justify-self: center;
+  }
+
+  .heading {
+    inline-size: min(100%, clamp(288px, 92.8cqi, 348px));
+    max-inline-size: clamp(288px, 92.8cqi, 348px);
+
+    gap: clamp(12px, 3.27cqi, 12.26px);
+
+    font-size: clamp(30px, 8.533cqi, 32px);
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+  }
+
+  .headingTopLine {
+    flex-wrap: wrap;
+    gap: clamp(8px, 2.667vw, 14px);
+    white-space: normal;
+  }
+
+  .headingTopLine {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    inline-size: auto;
+    min-inline-size: 0;
+    max-inline-size: 100%;
+
+    gap: clamp(10px, 1.25cqi, 18px);
+
+    white-space: nowrap;
+  }
+
+  .headingPrefixText,
+  .headingBottomLine {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    line-height: 1.2;
+    white-space: nowrap;
+  }
+
+  .headingHighlight {
+    min-inline-size: auto;
+    max-inline-size: none;
+
+    min-block-size: auto;
+    max-block-size: none;
+
+    padding-block: clamp(6px, 1.816cqi, 6.81px);
+    padding-inline: clamp(12px, 3.632cqi, 13.62px);
+
+    border-radius: clamp(6px, 1.816cqi, 6.81px);
+
+    font-size: inherit;
+    line-height: 1.2;
+  }
+
+  .headingTopLine > .headingHighlight {
+    margin-block-start: clamp(2px, 0.55cqi, 3px);
+  }
+
+  .headingBottomLine {
+    margin-block-start: clamp(0px, 0.15cqi, 1px);
+  }
+
+  .subheading {
+    margin-block-start: clamp(12px, 3.05cqi, 14px);
+  }
+
+  .subheading {
+    inline-size: min(100%, clamp(300px, 90.933cqi, 341px));
+    max-inline-size: clamp(300px, 90.933cqi, 341px);
+
+    margin-block-start: clamp(10px, 2.75cqi, 12px);
+
+    font-size: clamp(15px, 4.266cqi, 16px);
+    line-height: 1.5;
+  }
+
+  .visualArea {
+    inset-inline-start: 50%;
+    inset-block-start: var(--visual-top);
+
+    inline-size: var(--visual-width);
+    max-inline-size: none;
+
+    block-size: var(--visual-height);
+    min-block-size: var(--visual-height);
+    max-block-size: var(--visual-height);
+
+    transform: translateX(-50%) translateY(var(--visual-group-offset-y));
+
+    container-type: inline-size;
+  }
+  .visualAreaHasMobileImage {
+    inline-size: clamp(390px, 124cqi, 465px);
+    block-size: clamp(486px, 154cqi, 578px);
+
+    overflow: visible;
+  }
+
+  .visualAreaHasMobileImage .visualMobileImage {
+    position: absolute;
+    inset-inline-start: 50%;
+    inset-block-start: clamp(-34px, -8.5cqi, -26px);
+
+    display: block;
+
+    inline-size: clamp(455px, 136cqi, 510px);
+    block-size: auto;
+
+    max-inline-size: none;
+    max-block-size: none;
+
+    object-fit: contain;
+    object-position: center top;
+
+    transform: translateX(-50%);
+    transform-origin: center top;
+
+    pointer-events: none;
+    z-index: 10;
+  }
+
+  .visualAreaHasMobileImage .floatingCard {
+    display: none;
+  }
+  .centerVisual {
+    display: flex;
+  }
+
+  .floatingCard {
+    border-radius: clamp(15px, 5.066cqi, 19px);
+  }
+
+  .cardGoogle {
+    --card-size: clamp(76px, 21.51cqi, 89.1px);
+    --card-min-size: 76px;
+    --card-max-size: 89.1px;
+    --card-padding: clamp(13px, 4cqi, 16.57px);
+    --card-radius: clamp(10px, 2.84cqi, 11.76px);
+
+    --card-rotate: 16.27deg;
+
+    --card-shadow-y: clamp(1.8px, 0.52cqi, 2.14px);
+    --card-shadow-blur: clamp(27px, 7.74cqi, 32.06px);
+
+    inset-inline-start: clamp(56px, 16.17cqi, 67px);
+    inset-block-start: clamp(34px, 9.9cqi, 41px);
+  }
+
+  .cardSlack {
+    --card-size: clamp(75px, 21.27cqi, 88.07px);
+    --card-min-size: 75px;
+    --card-max-size: 88.07px;
+    --card-padding: clamp(13px, 4.7cqi, 19.47px);
+    --card-radius: clamp(10px, 2.86cqi, 11.84px);
+
+    --card-rotate: -23.52deg;
+    --card-shadow-y: clamp(1.8px, 0.52cqi, 2.15px);
+    --card-shadow-blur: clamp(27px, 7.79cqi, 3 2.28px);
+
+    inset-inline-start: auto;
+    inset-inline-end: clamp(42px, 12.07cqi, 50px);
+    inset-block-start: clamp(4px, 1.05cqi, 5px);
+  }
+
+  .cardAtlassian {
+    --card-size: clamp(91px, 25.88cqi, 107.18px);
+    --card-min-size: 91px;
+    --card-max-size: 107.18px;
+    --card-padding: clamp(18px, 5.1cqi, 21.21px);
+    --card-radius: clamp(9px, 2.49cqi, 10.32px);
+
+    --card-rotate: 6.12deg;
+
+    --card-shadow-y: clamp(1.6px, 0.45cqi, 1.88px);
+    --card-shadow-blur: clamp(24px, 6.79cqi, 28.13px);
+
+    inset-inline-start: clamp(15px, 4.55cqi, 19px);
+
+    inset-block-start: clamp(135px, 37.8cqi, 156px);
+  }
+
+  .cardAi {
+    --card-size: clamp(138px, 38.996cqi, 161.61px);
+    --card-min-size: 138px;
+    --card-max-size: 161.61px;
+
+    --ai-card-rect-size: clamp(124px, 35.24cqi, 146.01px);
+
+    --ai-logo-size: clamp(92px, 26.3cqi, 109px);
+
+    inline-size: var(--card-size);
+    min-inline-size: var(--card-min-size);
+    max-inline-size: var(--card-max-size);
+
+    block-size: var(--card-size);
+    min-block-size: var(--card-min-size);
+    max-block-size: var(--card-max-size);
+
+    padding: 0;
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+    backdrop-filter: none;
+
+    transform: none;
+
+    inset-inline-start: clamp(104px, 29.47cqi, 122px);
+    inset-block-start: clamp(185px, 52.39cqi, 217px);
+
+    z-index: 4;
+  }
+
+  .cardAi::before {
+    content: '';
+    position: absolute;
+
+    inline-size: var(--ai-card-rect-size);
+    block-size: var(--ai-card-rect-size);
+
+    inset-inline-start: clamp(0.8px, 0.26cqi, 0.97px);
+    inset-block-start: clamp(0.8px, 0.26cqi, 0.97px);
+
+    border-radius: clamp(11px, 3.32cqi, 13.75px);
+
+    background: rgba(255, 255, 255, 0.851);
+
+    box-shadow: 0 clamp(2px, 0.6cqi, 2.5px) clamp(32px, 9.05cqi, 37.5px)
+      rgba(0, 0, 0, 0.1);
+
+    backdrop-filter: blur(10px);
+
+    transform: rotate(-9.85deg);
+    transform-origin: center center;
+
+    z-index: 0;
+  }
+
+  .cardAi .floatingLogo {
+    position: absolute;
+
+    inline-size: var(--ai-logo-size);
+    block-size: var(--ai-logo-size);
+
+    inset-inline-start: clamp(18.6px, 5.28cqi, 21.88px);
+    inset-block-start: clamp(19px, 5.4cqi, 22.35px);
+
+    object-fit: contain;
+    object-position: center center;
+
+    transform: rotate(-9.85deg);
+    transform-origin: center center;
+
+    z-index: 1;
+  }
+
+  .cardSalesforce {
+    --card-size: clamp(112px, 31.82cqi, 131.72px);
+    --card-min-size: 112px;
+    --card-max-size: 131.72px;
+    --card-padding: clamp(18px, 5.75cqi, 23.83px);
+    --card-radius: clamp(10px, 2.85cqi, 11.82px);
+
+    --card-rotate: 13.45deg;
+
+    --card-shadow-y: clamp(1.8px, 0.52cqi, 2.15px);
+    --card-shadow-blur: clamp(27px, 7.78cqi, 32.24px);
+
+    inset-inline-start: auto;
+    inset-inline-end: clamp(22px, 6.2cqi, 26px);
+    inset-block-start: clamp(104px, 29.4cqi, 122px);
+  }
+
+  .centerVisual {
+    inset-inline-start: 50%;
+    inset-block-start: var(--center-visual-top);
+
+    inline-size: var(--center-visual-width);
+    min-inline-size: clamp(300px, 86.33cqi, 323.75px);
+    max-inline-size: 323.75px;
+
+    block-size: var(--center-visual-height);
+    min-block-size: clamp(177px, 51cqi, 191.25px);
+    max-block-size: 191.25px;
+
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+
+    overflow: visible;
+
+    transform: translateX(calc(-50% + var(--center-visual-offset-x)));
+  }
+
+  .centerVisualImageDesktop {
+    display: none;
+  }
+
+  .centerVisualImageMobile {
+    display: block;
+  }
+
+  .centerVisualImage {
+    inline-size: 100%;
+    block-size: 100%;
+
+    max-inline-size: 100%;
+    max-block-size: 100%;
+
+    object-fit: contain;
+    object-position: center bottom;
+
+    transform: none;
+  }
+}
+.visualMobileImage {
+  display: none;
+}
