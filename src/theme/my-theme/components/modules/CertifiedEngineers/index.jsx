@@ -8,6 +8,13 @@ import {
 } from '@hubspot/cms-components/fields';
 
 import styles from '../../../styles/certi-engineers.module.css';
+import linkedinIconDefaultImage from '../../../assets/image/certi-engineers/linkedin-icon.png';
+import upworkIconDefaultImage from '../../../assets/image/certi-engineers/upwork-icon.png';
+
+import member1DefaultImage from '../../../assets/image/certi-engineers/member-1.png';
+import member2DefaultImage from '../../../assets/image/certi-engineers/member-2.png';
+import member3DefaultImage from '../../../assets/image/certi-engineers/member-3.png';
+import member4DefaultImage from '../../../assets/image/certi-engineers/member-4.png';
 
 export const meta = {
   label: 'AAA Certified Engineers',
@@ -39,6 +46,32 @@ const defaultUpworkLink = {
   open_in_new_tab: true,
   no_follow: false,
 };
+
+function createDefaultImage(src, alt = '') {
+  return {
+    src,
+    alt,
+    altText: alt,
+  };
+}
+
+function getImageWithDefault(image, defaultImage) {
+  return image?.src ? image : defaultImage;
+}
+
+const defaultLinkedinIcon = createDefaultImage(
+  linkedinIconDefaultImage,
+  'LinkedIn',
+);
+
+const defaultUpworkIcon = createDefaultImage(upworkIconDefaultImage, 'Upwork');
+
+const defaultMemberImages = [
+  createDefaultImage(member1DefaultImage, 'Kiet Ngo'),
+  createDefaultImage(member2DefaultImage, 'Duy Trương'),
+  createDefaultImage(member3DefaultImage, 'Thạo Vũ'),
+  createDefaultImage(member4DefaultImage, 'Minh Luân'),
+];
 
 function getLinkHref(link) {
   return link?.url?.href || '#';
@@ -103,7 +136,17 @@ export function Component({ fieldValues = {} }) {
     members = [],
   } = fieldValues;
 
+  const safeLinkedinIcon = getImageWithDefault(
+    linkedinIcon,
+    defaultLinkedinIcon,
+  );
+  const safeUpworkIcon = getImageWithDefault(upworkIcon, defaultUpworkIcon);
+
   const headingLines = getHeadingLines(heading);
+  const safeMembers = members.map((member, index) => ({
+    ...member,
+    image: getImageWithDefault(member?.image, defaultMemberImages[index]),
+  }));
 
   const scrollToMember = (targetIndex) => {
     const track = trackRef.current;
@@ -239,7 +282,7 @@ export function Component({ fieldValues = {} }) {
               ref={trackRef}
               onScroll={handleTrackScroll}
             >
-              {members.map((member, index) => (
+              {safeMembers.map((member, index) => (
                 <article
                   className={styles.card}
                   key={`${member.memberName || 'member'}-${index}`}
@@ -267,10 +310,14 @@ export function Component({ fieldValues = {} }) {
                           rel={getLinkRel(member.linkedinLink)}
                           aria-label={`${member.memberName} LinkedIn`}
                         >
-                          {linkedinIcon?.src && (
+                          {safeLinkedinIcon?.src && (
                             <img
-                              src={linkedinIcon.src}
-                              alt={linkedinIcon.alt || 'LinkedIn'}
+                              src={safeLinkedinIcon.src}
+                              alt={
+                                safeLinkedinIcon.alt ||
+                                safeLinkedinIcon.altText ||
+                                'LinkedIn'
+                              }
                               className={`${styles.socialIcon} ${styles.linkedinIcon}`}
                               loading="lazy"
                             />
@@ -285,10 +332,14 @@ export function Component({ fieldValues = {} }) {
                           rel={getLinkRel(member.upworkLink)}
                           aria-label={`${member.memberName} Upwork`}
                         >
-                          {upworkIcon?.src && (
+                          {safeUpworkIcon?.src && (
                             <img
-                              src={upworkIcon.src}
-                              alt={upworkIcon.alt || 'Upwork'}
+                              src={safeUpworkIcon.src}
+                              alt={
+                                safeUpworkIcon.alt ||
+                                safeUpworkIcon.altText ||
+                                'Upwork'
+                              }
                               className={`${styles.socialIcon} ${styles.upworkIcon}`}
                               loading="lazy"
                             />
@@ -317,9 +368,9 @@ export function Component({ fieldValues = {} }) {
                 →
               </button>
             </div>
-            {members.length > 1 && (
+            {safeMembers.length > 1 && (
               <div className={styles.mobileDots}>
-                {members.map((_, index) => (
+                {safeMembers.map((_, index) => (
                   <button
                     key={`engineer-dot-${index}`}
                     className={`${styles.dot} ${

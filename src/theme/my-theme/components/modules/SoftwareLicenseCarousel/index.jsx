@@ -9,6 +9,18 @@ import {
 
 import styles from '../../../styles/software-license-carousel.module.css';
 
+import atlassianTopLogoImage from '../../../assets/image/software-license-carousel/atlassian-top-logo.png';
+import atlassianMainLogoImage from '../../../assets/image/software-license-carousel/atlassian-main-logo.png';
+
+import salesforceTopLogoImage from '../../../assets/image/software-license-carousel/salesforce-top-logo.png';
+import salesforceMainLogoImage from '../../../assets/image/software-license-carousel/salesforce-main-logo.png';
+
+import slackTopLogoImage from '../../../assets/image/software-license-carousel/slack-top-logo.png';
+import slackMainLogoImage from '../../../assets/image/software-license-carousel/slack-main-logo.png';
+
+import googleTopLogoImage from '../../../assets/image/software-license-carousel/google-top-logo.png';
+import googleMainLogoImage from '../../../assets/image/software-license-carousel/google-main-logo.png';
+
 export const meta = {
   label: 'AAA Software License Carousel',
 };
@@ -21,6 +33,60 @@ const defaultDetailLink = {
   open_in_new_tab: false,
   no_follow: false,
 };
+
+function createDefaultImage(src, alt = '') {
+  return {
+    src,
+    alt,
+    altText: alt,
+  };
+}
+
+function getImageWithDefault(image, defaultImage) {
+  return image?.src ? image : defaultImage;
+}
+
+function getImageAlt(image, fallback) {
+  return image?.alt || image?.altText || fallback || '';
+}
+
+const defaultCards = [
+  {
+    desc: 'Quản lý dự án, cộng tác và xử lý yêu cầu dịch vụ với Jira, Confluence, JSM',
+    detailLink: defaultDetailLink,
+  },
+  {
+    desc: 'CRM #1 với dữ liệu 360°, rút ngắn chu kỳ bán hàng, tăng doanh thu',
+    detailLink: defaultDetailLink,
+  },
+  {
+    desc: 'Giao tiếp theo channel, tập trung thông tin, tăng tốc phối hợp nhóm',
+    detailLink: defaultDetailLink,
+  },
+  {
+    desc: 'Giao tiếp theo thời gian thực, quản lý dữ liệu và cộng tác hiệu quả',
+    detailLink: defaultDetailLink,
+  },
+];
+
+const defaultCardImages = [
+  {
+    topLogo: createDefaultImage(atlassianTopLogoImage, 'Atlassian'),
+    mainLogo: createDefaultImage(atlassianMainLogoImage, 'Atlassian'),
+  },
+  {
+    topLogo: createDefaultImage(salesforceTopLogoImage, 'Salesforce'),
+    mainLogo: createDefaultImage(salesforceMainLogoImage, 'Salesforce'),
+  },
+  {
+    topLogo: createDefaultImage(slackTopLogoImage, 'Slack'),
+    mainLogo: createDefaultImage(slackMainLogoImage, 'Slack'),
+  },
+  {
+    topLogo: createDefaultImage(googleTopLogoImage, 'Google'),
+    mainLogo: createDefaultImage(googleMainLogoImage, 'Google'),
+  },
+];
 
 export const fields = (
   <ModuleFields>
@@ -40,36 +106,21 @@ export const fields = (
       name="cards"
       label="License cards"
       occurrence={{
-        min: 1,
+        min: 0,
         max: 20,
         default: 4,
       }}
-      default={[
-        {
-          desc: 'Quản lý dự án, cộng tác và xử lý yêu cầu dịch vụ với Jira, Confluence, JSM',
-          detailLink: defaultDetailLink,
-        },
-        {
-          desc: 'CRM #1 với dữ liệu 360°, rút ngắn chu kỳ bán hàng, tăng doanh thu',
-          detailLink: defaultDetailLink,
-        },
-        {
-          desc: 'Giao tiếp theo channel, tập trung thông tin, tăng tốc phối hợp nhóm',
-          detailLink: defaultDetailLink,
-        },
-        {
-          desc: 'Giao tiếp theo thời gian thực, quản lý dữ liệu và cộng tác hiệu quả',
-          detailLink: defaultDetailLink,
-        },
-      ]}
+      default={defaultCards}
     >
       <ImageField name="topLogo" label="Top logo" />
       <ImageField name="mainLogo" label="Main logo" />
+
       <TextField
         name="desc"
         label="Description"
         default="Nội dung mô tả card"
       />
+
       <LinkField
         name="detailLink"
         label="Detail link"
@@ -126,11 +177,30 @@ const getMainLogoStyle = (image) => {
   return style;
 };
 
-export function Component({ fieldValues }) {
+function getSafeCards(cards = []) {
+  const sourceCards =
+    Array.isArray(cards) && cards.length > 0 ? cards : defaultCards;
+
+  return sourceCards.map((card, index) => {
+    const defaultCard = defaultCards[index] || defaultCards[0];
+    const defaultImages = defaultCardImages[index] || defaultCardImages[0];
+
+    return {
+      ...defaultCard,
+      ...card,
+      detailLink: card?.detailLink || defaultCard.detailLink,
+      topLogo: getImageWithDefault(card?.topLogo, defaultImages.topLogo),
+      mainLogo: getImageWithDefault(card?.mainLogo, defaultImages.mainLogo),
+    };
+  });
+}
+
+export function Component({ fieldValues = {} }) {
   const trackRef = useRef(null);
   const [activeIndex, setActiveIndex] = useState(0);
   const isProgrammaticScrollRef = useRef(false);
   const scrollTimerRef = useRef(null);
+
   const colorClasses = [
     styles.blueCard,
     styles.cyanCard,
@@ -138,7 +208,13 @@ export function Component({ fieldValues }) {
     styles.lightCard,
   ];
 
-  const cards = fieldValues.cards || [];
+  const heading = fieldValues.heading || 'Phân phối bản quyền phần mềm quốc tế';
+
+  const subheading =
+    fieldValues.subheading ||
+    'Giá niêm yết, xuất hóa đơn đầy đủ, hỗ trợ kỹ thuật bởi chuyên gia';
+
+  const cards = getSafeCards(fieldValues.cards);
 
   const scrollToCard = (targetIndex) => {
     const track = trackRef.current;
@@ -210,14 +286,12 @@ export function Component({ fieldValues }) {
 
     setActiveIndex(nearestIndex);
   };
+
   const handleDotClick = (event, index) => {
     event.preventDefault();
     event.stopPropagation();
 
-    // đổi chấm vàng ngay lập tức
     setActiveIndex(index);
-
-    // sau đó mới scroll card
     scrollToCard(index);
   };
 
@@ -225,33 +299,35 @@ export function Component({ fieldValues }) {
     <section className={styles.licenseSection}>
       <div className={styles.container}>
         <div className={styles.header}>
-          <h2 className={styles.headingTitle}>{fieldValues.heading}</h2>
+          <h2 className={styles.headingTitle}>{heading}</h2>
 
-          <p className={styles.headingSubtitle}>{fieldValues.subheading}</p>
+          <p className={styles.headingSubtitle}>{subheading}</p>
 
-          <div className={styles.actions}>
-            <button
-              className={styles.arrowButton}
-              type="button"
-              aria-label="Previous"
-              onClick={() => scrollCards(-1)}
-            >
-              <span className={styles.arrowIcon} aria-hidden="true">
-                ←
-              </span>
-            </button>
+          {cards.length > 1 ? (
+            <div className={styles.actions}>
+              <button
+                className={styles.arrowButton}
+                type="button"
+                aria-label="Previous"
+                onClick={() => scrollCards(-1)}
+              >
+                <span className={styles.arrowIcon} aria-hidden="true">
+                  ←
+                </span>
+              </button>
 
-            <button
-              className={styles.arrowButton}
-              type="button"
-              aria-label="Next"
-              onClick={() => scrollCards(1)}
-            >
-              <span className={styles.arrowIcon} aria-hidden="true">
-                →
-              </span>
-            </button>
-          </div>
+              <button
+                className={styles.arrowButton}
+                type="button"
+                aria-label="Next"
+                onClick={() => scrollCards(1)}
+              >
+                <span className={styles.arrowIcon} aria-hidden="true">
+                  →
+                </span>
+              </button>
+            </div>
+          ) : null}
         </div>
 
         <div
@@ -267,18 +343,19 @@ export function Component({ fieldValues }) {
               key={`license-card-${index}`}
             >
               <div className={styles.cardContent}>
-                {card.topLogo?.src && (
+                {card.topLogo?.src ? (
                   <div
                     className={styles.topLogoBox}
                     style={getTopLogoStyle(card.topLogo)}
                   >
                     <img
                       src={card.topLogo.src}
-                      alt={card.topLogo.alt || ''}
+                      alt={getImageAlt(card.topLogo, `Top logo ${index + 1}`)}
                       className={styles.topLogo}
+                      loading="lazy"
                     />
                   </div>
-                )}
+                ) : null}
 
                 <p className={styles.desc}>{card.desc}</p>
 
@@ -298,7 +375,7 @@ export function Component({ fieldValues }) {
                 </a>
               </div>
 
-              {card.mainLogo?.src && (
+              {card.mainLogo?.src ? (
                 <div className={styles.logoFrame}>
                   <div
                     className={styles.logoCircle}
@@ -306,16 +383,18 @@ export function Component({ fieldValues }) {
                   >
                     <img
                       src={card.mainLogo.src}
-                      alt={card.mainLogo.alt || ''}
+                      alt={getImageAlt(card.mainLogo, `Main logo ${index + 1}`)}
                       className={styles.mainLogo}
+                      loading="lazy"
                     />
                   </div>
                 </div>
-              )}
+              ) : null}
             </article>
           ))}
         </div>
-        {cards.length > 1 && (
+
+        {cards.length > 1 ? (
           <div className={styles.mobileDots}>
             {cards.map((_, index) => (
               <button
@@ -329,7 +408,7 @@ export function Component({ fieldValues }) {
               />
             ))}
           </div>
-        )}
+        ) : null}
       </div>
     </section>
   );

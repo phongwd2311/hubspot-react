@@ -9,6 +9,13 @@ import {
 
 import styles from '../../../styles/customer-story.module.css';
 
+import storyBgDefaultImage from '../../../assets/image/customer-story/story-bg.png';
+import companyLogoDefaultImage from '../../../assets/image/customer-story/company-logo.png';
+import toolJiraDefaultImage from '../../../assets/image/customer-story/tool-jira.png';
+import toolScriptDefaultImage from '../../../assets/image/customer-story/tool-script.png';
+import toolConfluenceDefaultImage from '../../../assets/image/customer-story/tool-confluence.png';
+import mockupDefaultImage from '../../../assets/image/customer-story/mockup.png';
+
 export const meta = {
   label: 'AAA Customer Story',
 };
@@ -22,6 +29,43 @@ const defaultDetailLink = {
   no_follow: false,
 };
 
+const defaultStories = [
+  {
+    quote:
+      '"Trước đây, khối công nghệ dịch vụ phải phân bổ 50% thời gian để quản trị hệ thống. Nhờ chuyển đổi lên Cloud, chúng tôi có thể tập trung 100% vào phục vụ khách hàng."',
+    authorName: 'Kiên Vũ',
+    authorRole: 'Senior SysOps Admin, VNDirect',
+    detailText: 'XEM CHI TIẾT DỰ ÁN',
+    toolOneText: 'Jira',
+    toolTwoText: 'AgileOps Script',
+    toolThreeText: 'Confluence',
+    detailLink: defaultDetailLink,
+  },
+];
+
+function createDefaultImage(src, alt = '') {
+  return {
+    src,
+    alt,
+    altText: alt,
+  };
+}
+
+function getImageWithDefault(image, defaultImage) {
+  return image?.src ? image : defaultImage;
+}
+
+const defaultStoryImages = [
+  {
+    backgroundImage: createDefaultImage(storyBgDefaultImage, ''),
+    companyLogo: createDefaultImage(companyLogoDefaultImage, 'Company logo'),
+    toolOneIcon: createDefaultImage(toolJiraDefaultImage, 'Jira'),
+    toolTwoIcon: createDefaultImage(toolScriptDefaultImage, 'AgileOps Script'),
+    toolThreeIcon: createDefaultImage(toolConfluenceDefaultImage, 'Confluence'),
+    mockupImage: createDefaultImage(mockupDefaultImage, ''),
+  },
+];
+
 function getHref(link) {
   return link?.url?.href || '#';
 }
@@ -32,6 +76,10 @@ function getTarget(link) {
 
 function getRel(link) {
   return link?.open_in_new_tab ? 'noopener noreferrer' : undefined;
+}
+
+function getImageAlt(image, fallback) {
+  return image?.alt || image?.altText || fallback || '';
 }
 
 function getBackgroundStyle(image) {
@@ -63,6 +111,53 @@ function renderHeading(heading) {
   );
 }
 
+function getSafeStories(stories = []) {
+  const sourceStories =
+    Array.isArray(stories) && stories.length > 0 ? stories : defaultStories;
+
+  return sourceStories.map((story, index) => {
+    const defaultStory = defaultStories[index] || defaultStories[0];
+    const defaultImages = defaultStoryImages[index] || defaultStoryImages[0];
+
+    return {
+      ...defaultStory,
+      ...story,
+
+      detailLink: story?.detailLink || defaultStory.detailLink,
+
+      backgroundImage: getImageWithDefault(
+        story?.backgroundImage,
+        defaultImages.backgroundImage,
+      ),
+
+      companyLogo: getImageWithDefault(
+        story?.companyLogo,
+        defaultImages.companyLogo,
+      ),
+
+      toolOneIcon: getImageWithDefault(
+        story?.toolOneIcon,
+        defaultImages.toolOneIcon,
+      ),
+
+      toolTwoIcon: getImageWithDefault(
+        story?.toolTwoIcon,
+        defaultImages.toolTwoIcon,
+      ),
+
+      toolThreeIcon: getImageWithDefault(
+        story?.toolThreeIcon,
+        defaultImages.toolThreeIcon,
+      ),
+
+      mockupImage: getImageWithDefault(
+        story?.mockupImage,
+        defaultImages.mockupImage,
+      ),
+    };
+  });
+}
+
 export const fields = (
   <ModuleFields>
     <TextField
@@ -79,19 +174,7 @@ export const fields = (
         max: 10,
         default: 1,
       }}
-      default={[
-        {
-          quote:
-            '"Trước đây, khối công nghệ dịch vụ phải phân bổ 50% thời gian để quản trị hệ thống. Nhờ chuyển đổi lên Cloud, chúng tôi có thể tập trung 100% vào phục vụ khách hàng."',
-          authorName: 'Kiên Vũ',
-          authorRole: 'Senior SysOps Admin, VNDirect',
-          detailText: 'XEM CHI TIẾT DỰ ÁN',
-          toolOneText: 'Jira',
-          toolTwoText: 'AgileOps Script',
-          toolThreeText: 'Confluence',
-          detailLink: defaultDetailLink,
-        },
-      ]}
+      default={defaultStories}
     >
       <ImageField name="backgroundImage" label="Background image" />
       <ImageField name="companyLogo" label="Company logo" />
@@ -128,6 +211,7 @@ export const fields = (
         label="Tool 3 text"
         default="Confluence"
       />
+
       <ImageField name="mockupImage" label="Mockup image" />
     </RepeatedFieldGroup>
   </ModuleFields>
@@ -140,7 +224,7 @@ export function Component({ fieldValues = {} }) {
   const heading =
     fieldValues.heading || 'Hơn 500 doanh nghiệp đồng hành cùng AgileOps';
 
-  const stories = fieldValues.stories || [];
+  const stories = getSafeStories(fieldValues.stories);
 
   const scrollToStory = (targetIndex) => {
     const track = trackRef.current;
@@ -163,6 +247,7 @@ export function Component({ fieldValues = {} }) {
   const scrollStories = (direction) => {
     scrollToStory(activeIndex + direction);
   };
+
   const handleTrackScroll = () => {
     const track = trackRef.current;
     if (!track) return;
@@ -209,6 +294,7 @@ export function Component({ fieldValues = {} }) {
               </div>
             )}
           </div>
+
           {stories.length > 1 && (
             <div
               className={styles.mobileDots}
@@ -242,14 +328,14 @@ export function Component({ fieldValues = {} }) {
                   key={`customer-story-${index}`}
                 >
                   <div className={styles.storyContent}>
-                    {story.companyLogo?.src && (
+                    {story.companyLogo?.src ? (
                       <img
                         src={story.companyLogo.src}
-                        alt={story.companyLogo.alt || ''}
+                        alt={getImageAlt(story.companyLogo, 'Company logo')}
                         className={styles.companyLogo}
                         loading="lazy"
                       />
-                    )}
+                    ) : null}
 
                     <blockquote className={styles.quote}>
                       {story.quote}
@@ -272,48 +358,54 @@ export function Component({ fieldValues = {} }) {
 
                   <div className={styles.tools}>
                     <div className={styles.toolPill}>
-                      {story.toolOneIcon?.src && (
+                      {story.toolOneIcon?.src ? (
                         <img
                           src={story.toolOneIcon.src}
-                          alt={story.toolOneIcon.alt || ''}
+                          alt={getImageAlt(story.toolOneIcon, 'Jira')}
                           loading="lazy"
                         />
-                      )}
-                      <span>{story.toolOneText}</span>
+                      ) : null}
+
+                      <span>{story.toolOneText || 'Jira'}</span>
                     </div>
 
                     <div
                       className={`${styles.toolPill} ${styles.toolPillWide}`}
                     >
-                      {story.toolTwoIcon?.src && (
+                      {story.toolTwoIcon?.src ? (
                         <img
                           src={story.toolTwoIcon.src}
-                          alt={story.toolTwoIcon.alt || ''}
+                          alt={getImageAlt(
+                            story.toolTwoIcon,
+                            'AgileOps Script',
+                          )}
                           loading="lazy"
                         />
-                      )}
-                      <span>{story.toolTwoText}</span>
+                      ) : null}
+
+                      <span>{story.toolTwoText || 'AgileOps Script'}</span>
                     </div>
 
                     <div className={styles.toolPill}>
-                      {story.toolThreeIcon?.src && (
+                      {story.toolThreeIcon?.src ? (
                         <img
                           src={story.toolThreeIcon.src}
-                          alt={story.toolThreeIcon.alt || ''}
+                          alt={getImageAlt(story.toolThreeIcon, 'Confluence')}
                           loading="lazy"
                         />
-                      )}
-                      <span>{story.toolThreeText}</span>
+                      ) : null}
+
+                      <span>{story.toolThreeText || 'Confluence'}</span>
                     </div>
 
-                    {story.mockupImage?.src && (
+                    {story.mockupImage?.src ? (
                       <img
                         src={story.mockupImage.src}
-                        alt={story.mockupImage.alt || ''}
+                        alt={getImageAlt(story.mockupImage, '')}
                         className={styles.mockupImage}
                         loading="lazy"
                       />
-                    )}
+                    ) : null}
                   </div>
                 </article>
               ))}

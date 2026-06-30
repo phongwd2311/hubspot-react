@@ -4,7 +4,17 @@ import {
   LinkField,
   ImageField,
 } from '@hubspot/cms-components/fields';
+
 import styles from '../../../styles/page-footer.module.css';
+
+import logoDefaultImage from '../../../assets/image/page-footer/logo.png';
+import certLeftDefaultImage from '../../../assets/image/page-footer/cert-left.png';
+import certRightDefaultImage from '../../../assets/image/page-footer/cert-right.png';
+
+import socialUpworkDefaultImage from '../../../assets/image/page-footer/social-upwork.png';
+import socialLinkedinDefaultImage from '../../../assets/image/page-footer/social-linkedin.png';
+import socialFacebookDefaultImage from '../../../assets/image/page-footer/social-facebook.png';
+import socialYoutubeDefaultImage from '../../../assets/image/page-footer/social-youtube.png';
 
 export const meta = {
   label: 'AAA Footer',
@@ -17,6 +27,32 @@ const defaultButtonLink = {
   },
   open_in_new_tab: false,
   no_follow: false,
+};
+
+function createDefaultImage(src, alt = '') {
+  return {
+    src,
+    alt,
+    altText: alt,
+  };
+}
+
+function getImageWithDefault(image, defaultImage) {
+  return image?.src ? image : defaultImage;
+}
+
+function getImageAlt(image, fallback) {
+  return image?.alt || image?.altText || fallback || '';
+}
+
+const defaultImages = {
+  logo: createDefaultImage(logoDefaultImage, 'AgileOps logo'),
+  certLeft: createDefaultImage(certLeftDefaultImage, 'Certification badge'),
+  certRight: createDefaultImage(certRightDefaultImage, 'Certification badge'),
+  upwork: createDefaultImage(socialUpworkDefaultImage, 'Upwork'),
+  linkedin: createDefaultImage(socialLinkedinDefaultImage, 'LinkedIn'),
+  facebook: createDefaultImage(socialFacebookDefaultImage, 'Facebook'),
+  youtube: createDefaultImage(socialYoutubeDefaultImage, 'YouTube'),
 };
 
 export const fields = (
@@ -45,68 +81,19 @@ export const fields = (
       default={defaultButtonLink}
     />
 
-    <ImageField
-      name="logo_image"
-      label="Logo image"
-      default={{
-        src: '',
-        alt: 'AgileOps logo',
-      }}
-    />
+    <ImageField name="logo_image" label="Logo image" />
 
-    <ImageField
-      name="cert_image_left"
-      label="Certification image left"
-      default={{
-        src: '',
-        alt: 'Certification badges',
-      }}
-    />
+    <ImageField name="cert_image_left" label="Certification image left" />
 
-    <ImageField
-      name="cert_image_right"
-      label="Certification image right"
-      default={{
-        src: '',
-        alt: 'Certification badges',
-      }}
-    />
+    <ImageField name="cert_image_right" label="Certification image right" />
 
-    <ImageField
-      name="social_icon_upwork"
-      label="Social icon - Upwork"
-      default={{
-        src: '',
-        alt: 'Upwork',
-      }}
-    />
+    <ImageField name="social_icon_upwork" label="Social icon - Upwork" />
 
-    <ImageField
-      name="social_icon_linkedin"
-      label="Social icon - LinkedIn"
-      default={{
-        src: '',
-        alt: 'LinkedIn',
-      }}
-    />
+    <ImageField name="social_icon_linkedin" label="Social icon - LinkedIn" />
 
-    <ImageField
-      name="social_icon_facebook"
-      label="Social icon - Facebook"
-      default={{
-        src: '',
-        alt: 'Facebook',
-      }}
-    />
+    <ImageField name="social_icon_facebook" label="Social icon - Facebook" />
 
-    <ImageField
-      name="social_icon_youtube"
-      label="Social icon - YouTube"
-      default={{
-        src: '',
-        alt: 'YouTube',
-      }}
-    />
+    <ImageField name="social_icon_youtube" label="Social icon - YouTube" />
 
     <TextField
       name="copyright"
@@ -214,23 +201,46 @@ function getLinkRel(link) {
   return rel.join(' ');
 }
 
-function hasImage(image) {
-  return Boolean(image?.src);
-}
+export function Component({ fieldValues = {} }) {
+  const ctaLine1 = fieldValues.cta_line_1 || 'Sẵn sàng mua bản quyền,';
+  const ctaLine2 = fieldValues.cta_line_2 || 'triển khai phần mềm?';
+  const buttonText = fieldValues.button_text || 'Đặt lịch tư vấn';
+  const buttonLink = fieldValues.button_link || defaultButtonLink;
 
-export function Component({ fieldValues }) {
-  const ctaLine1 = fieldValues?.cta_line_1 || 'Sẵn sàng mua bản quyền,';
-  const ctaLine2 = fieldValues?.cta_line_2 || 'triển khai phần mềm?';
-  const buttonText = fieldValues?.button_text || 'Đặt lịch tư vấn';
-  const buttonLink = fieldValues?.button_link || defaultButtonLink;
+  const logoImage = getImageWithDefault(
+    fieldValues.logo_image,
+    defaultImages.logo,
+  );
 
-  const logoImage = fieldValues?.logo_image;
-  const certImageLeft = fieldValues?.cert_image_left;
-  const certImageRight = fieldValues?.cert_image_right;
-  const socialIconUpwork = fieldValues?.social_icon_upwork;
-  const socialIconLinkedin = fieldValues?.social_icon_linkedin;
-  const socialIconFacebook = fieldValues?.social_icon_facebook;
-  const socialIconYoutube = fieldValues?.social_icon_youtube;
+  const certImageLeft = getImageWithDefault(
+    fieldValues.cert_image_left,
+    defaultImages.certLeft,
+  );
+
+  const certImageRight = getImageWithDefault(
+    fieldValues.cert_image_right,
+    defaultImages.certRight,
+  );
+
+  const socialIconUpwork = getImageWithDefault(
+    fieldValues.social_icon_upwork,
+    defaultImages.upwork,
+  );
+
+  const socialIconLinkedin = getImageWithDefault(
+    fieldValues.social_icon_linkedin,
+    defaultImages.linkedin,
+  );
+
+  const socialIconFacebook = getImageWithDefault(
+    fieldValues.social_icon_facebook,
+    defaultImages.facebook,
+  );
+
+  const socialIconYoutube = getImageWithDefault(
+    fieldValues.social_icon_youtube,
+    defaultImages.youtube,
+  );
 
   return (
     <footer className={styles.footer}>
@@ -254,36 +264,28 @@ export function Component({ fieldValues }) {
         <div className={styles.footerBody}>
           <div className={styles.brandRow}>
             <a href="/" className={styles.brand} aria-label="AgileOps">
-              {hasImage(logoImage) ? (
-                <img
-                  className={styles.logoImage}
-                  src={logoImage.src}
-                  alt={logoImage.alt || 'AgileOps logo'}
-                  loading="lazy"
-                />
-              ) : (
-                <span className={styles.logoFallback}>AgileOps</span>
-              )}
+              <img
+                className={styles.logoImage}
+                src={logoImage.src}
+                alt={getImageAlt(logoImage, 'AgileOps logo')}
+                loading="lazy"
+              />
             </a>
 
             <div className={styles.certImages}>
-              {hasImage(certImageLeft) && (
-                <img
-                  className={styles.certImageLarge}
-                  src={certImageLeft.src}
-                  alt={certImageLeft.alt || ''}
-                  loading="lazy"
-                />
-              )}
+              <img
+                className={styles.certImageLarge}
+                src={certImageLeft.src}
+                alt={getImageAlt(certImageLeft, 'Certification badge')}
+                loading="lazy"
+              />
 
-              {hasImage(certImageRight) && (
-                <img
-                  className={styles.certImageSmall}
-                  src={certImageRight.src}
-                  alt={certImageRight.alt || ''}
-                  loading="lazy"
-                />
-              )}
+              <img
+                className={styles.certImageSmall}
+                src={certImageRight.src}
+                alt={getImageAlt(certImageRight, 'Certification badge')}
+                loading="lazy"
+              />
             </div>
           </div>
 
@@ -334,16 +336,12 @@ export function Component({ fieldValues }) {
                 className={styles.socialImageLink}
                 aria-label="Upwork"
               >
-                {hasImage(socialIconUpwork) ? (
-                  <img
-                    className={styles.socialImage}
-                    src={socialIconUpwork.src}
-                    alt={socialIconUpwork.alt || 'Upwork'}
-                    loading="lazy"
-                  />
-                ) : (
-                  <span className={styles.socialFallback}>up</span>
-                )}
+                <img
+                  className={styles.socialImage}
+                  src={socialIconUpwork.src}
+                  alt={getImageAlt(socialIconUpwork, 'Upwork')}
+                  loading="lazy"
+                />
               </a>
 
               <a
@@ -351,16 +349,12 @@ export function Component({ fieldValues }) {
                 className={styles.socialImageLink}
                 aria-label="LinkedIn"
               >
-                {hasImage(socialIconLinkedin) ? (
-                  <img
-                    className={styles.socialImage}
-                    src={socialIconLinkedin.src}
-                    alt={socialIconLinkedin.alt || 'LinkedIn'}
-                    loading="lazy"
-                  />
-                ) : (
-                  <span className={styles.socialFallback}>in</span>
-                )}
+                <img
+                  className={styles.socialImage}
+                  src={socialIconLinkedin.src}
+                  alt={getImageAlt(socialIconLinkedin, 'LinkedIn')}
+                  loading="lazy"
+                />
               </a>
 
               <a
@@ -368,16 +362,12 @@ export function Component({ fieldValues }) {
                 className={styles.socialImageLink}
                 aria-label="Facebook"
               >
-                {hasImage(socialIconFacebook) ? (
-                  <img
-                    className={styles.socialImage}
-                    src={socialIconFacebook.src}
-                    alt={socialIconFacebook.alt || 'Facebook'}
-                    loading="lazy"
-                  />
-                ) : (
-                  <span className={styles.socialFallback}>f</span>
-                )}
+                <img
+                  className={styles.socialImage}
+                  src={socialIconFacebook.src}
+                  alt={getImageAlt(socialIconFacebook, 'Facebook')}
+                  loading="lazy"
+                />
               </a>
 
               <a
@@ -385,16 +375,12 @@ export function Component({ fieldValues }) {
                 className={`${styles.socialImageLink} ${styles.socialImageLinkYoutube}`}
                 aria-label="YouTube"
               >
-                {hasImage(socialIconYoutube) ? (
-                  <img
-                    className={styles.socialImage}
-                    src={socialIconYoutube.src}
-                    alt={socialIconYoutube.alt || 'YouTube'}
-                    loading="lazy"
-                  />
-                ) : (
-                  <span className={styles.socialFallback}>▶</span>
-                )}
+                <img
+                  className={styles.socialImage}
+                  src={socialIconYoutube.src}
+                  alt={getImageAlt(socialIconYoutube, 'YouTube')}
+                  loading="lazy"
+                />
               </a>
             </div>
           </div>

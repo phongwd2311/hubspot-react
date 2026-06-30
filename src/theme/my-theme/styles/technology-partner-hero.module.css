@@ -542,15 +542,37 @@
   }
 
   .centerVisual {
+    inset-inline-start: 50%;
     inset-block-start: var(--center-visual-top);
 
     inline-size: var(--center-visual-width);
-    min-inline-size: 300px;
-    max-inline-size: 440px;
+    min-inline-size: clamp(300px, 86.33cqi, 323.75px);
+    max-inline-size: 323.75px;
 
     block-size: var(--center-visual-height);
-    min-block-size: 160px;
-    max-block-size: 260px;
+    min-block-size: clamp(177px, 51cqi, 191.25px);
+    max-block-size: 191.25px;
+
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+
+    overflow: visible;
+
+    transform: translateX(calc(-50% + var(--center-visual-offset-x)));
+  }
+
+  .centerVisualImage {
+    inline-size: 100%;
+    block-size: 100%;
+
+    max-inline-size: 100%;
+    max-block-size: 100%;
+
+    object-fit: contain;
+    object-position: center bottom;
+
+    transform: none;
   }
 }
 
@@ -700,39 +722,6 @@
     transform: translateX(-50%) translateY(var(--visual-group-offset-y));
 
     container-type: inline-size;
-  }
-  .visualAreaHasMobileImage {
-    inline-size: clamp(390px, 124cqi, 465px);
-    block-size: clamp(486px, 154cqi, 578px);
-
-    overflow: visible;
-  }
-
-  .visualAreaHasMobileImage .visualMobileImage {
-    position: absolute;
-    inset-inline-start: 50%;
-    inset-block-start: clamp(-34px, -8.5cqi, -26px);
-
-    display: block;
-
-    inline-size: clamp(455px, 136cqi, 510px);
-    block-size: auto;
-
-    max-inline-size: none;
-    max-block-size: none;
-
-    object-fit: contain;
-    object-position: center top;
-
-    transform: translateX(-50%);
-    transform-origin: center top;
-
-    pointer-events: none;
-    z-index: 10;
-  }
-
-  .visualAreaHasMobileImage .floatingCard {
-    display: none;
   }
   .centerVisual {
     display: flex;
@@ -923,7 +912,4 @@
 
     transform: none;
   }
-}
-.visualMobileImage {
-  display: none;
 }

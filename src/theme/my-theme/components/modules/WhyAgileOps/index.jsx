@@ -4,7 +4,13 @@ import {
   TextField,
   ImageField,
 } from '@hubspot/cms-components/fields';
+
 import styles from '../../../styles/why-agileops.module.css';
+
+import icon1DefaultImage from '../../../assets/image/why-agileops/icon-1.png';
+import icon2DefaultImage from '../../../assets/image/why-agileops/icon-2.png';
+import icon3DefaultImage from '../../../assets/image/why-agileops/icon-3.png';
+import icon4DefaultImage from '../../../assets/image/why-agileops/icon-4.png';
 
 export const meta = {
   label: 'Why AgileOps',
@@ -29,7 +35,7 @@ export const fields = (
     <TextField
       name="desc1"
       label="Description 1"
-      default="Bằng với giá trên website|cửa hãng, thanh toán VND"
+      default="Bằng với giá trên website|của hãng, thanh toán VND"
     />
 
     <ImageField name="icon2" label="Icon 2" />
@@ -58,6 +64,25 @@ export const fields = (
   </ModuleFields>
 );
 
+function createDefaultImage(src, alt = '') {
+  return {
+    src,
+    alt,
+    altText: alt,
+  };
+}
+
+function getImageWithDefault(image, defaultImage) {
+  return image?.src ? image : defaultImage;
+}
+
+const defaultIcons = [
+  createDefaultImage(icon1DefaultImage, 'Giá minh bạch'),
+  createDefaultImage(icon2DefaultImage, 'Chứng từ đầy đủ'),
+  createDefaultImage(icon3DefaultImage, 'Xử lý thuế nhà thầu'),
+  createDefaultImage(icon4DefaultImage, 'Hỗ trợ kỹ thuật'),
+];
+
 function renderTextWithBreak(text = '') {
   return text.split('|').map((line, index, array) => (
     <span key={index}>
@@ -67,13 +92,8 @@ function renderTextWithBreak(text = '') {
   ));
 }
 
-function renderHeading(text = '') {
-  return text.split('|').map((line, index, array) => (
-    <Fragment key={index}>
-      {line}
-      {index < array.length - 1 && <br />}
-    </Fragment>
-  ));
+function getImageAlt(image, fallback) {
+  return image?.alt || image?.altText || fallback || '';
 }
 
 function getImageSrc(image) {
@@ -114,24 +134,30 @@ export function Component({ fieldValues = {} }) {
 
   const items = [
     {
-      icon: fieldValues.icon1,
-      title: fieldValues.title1,
-      desc: fieldValues.desc1,
+      icon: getImageWithDefault(fieldValues.icon1, defaultIcons[0]),
+      title: fieldValues.title1 || 'Giá minh bạch',
+      desc:
+        fieldValues.desc1 ||
+        'Bằng với giá trên website|của hãng, thanh toán VND',
     },
     {
-      icon: fieldValues.icon2,
-      title: fieldValues.title2,
-      desc: fieldValues.desc2,
+      icon: getImageWithDefault(fieldValues.icon2, defaultIcons[1]),
+      title: fieldValues.title2 || 'Chứng từ đầy đủ',
+      desc:
+        fieldValues.desc2 || 'Xuất hóa đơn tài chính và|hợp đồng chuẩn pháp lý',
     },
     {
-      icon: fieldValues.icon3,
-      title: fieldValues.title3,
-      desc: fieldValues.desc3,
+      icon: getImageWithDefault(fieldValues.icon3, defaultIcons[2]),
+      title: fieldValues.title3 || 'Xử lý thuế nhà thầu',
+      desc:
+        fieldValues.desc3 ||
+        'Đội ngũ kế toán, pháp lý|đảm nhiệm toàn bộ thủ tục',
     },
     {
-      icon: fieldValues.icon4,
-      title: fieldValues.title4,
-      desc: fieldValues.desc4,
+      icon: getImageWithDefault(fieldValues.icon4, defaultIcons[3]),
+      title: fieldValues.title4 || 'Hỗ trợ kỹ thuật',
+      desc:
+        fieldValues.desc4 || '50+ kỹ sư sẵn sàng hỗ trợ|mọi yêu cầu kỹ thuật',
     },
   ];
 
@@ -153,7 +179,9 @@ export function Component({ fieldValues = {} }) {
           <div className={styles.inner}>
             <div className={styles.left}>
               {(() => {
-                const [line1 = '', line2 = ''] = (fieldValues.heading || '')
+                const [line1 = '', line2 = ''] = (
+                  fieldValues.heading || 'Vì sao nên mua | bản quyền qua'
+                )
                   .split('|')
                   .map((text) => text.trim());
 
@@ -164,7 +192,7 @@ export function Component({ fieldValues = {} }) {
                     <span className={styles.headingLine}>
                       {line2}{' '}
                       <span className={styles.highlight}>
-                        {fieldValues.highlightText}
+                        {fieldValues.highlightText || 'AgileOps?'}
                       </span>
                     </span>
                   </h2>
@@ -182,7 +210,8 @@ export function Component({ fieldValues = {} }) {
                       <img
                         className={styles.icon}
                         src={iconSrc}
-                        alt={item.icon?.alt || item.title || ''}
+                        alt={getImageAlt(item.icon, item.title)}
+                        loading="lazy"
                       />
                     )}
 

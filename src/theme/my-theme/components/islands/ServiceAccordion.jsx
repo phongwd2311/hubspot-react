@@ -1,4 +1,3 @@
-import ImplementationTopHeader from './ImplementationTopHeader.jsx';
 import { Fragment, useState } from 'react';
 import styles from '../../styles/implementation-services.module.css';
 
@@ -233,7 +232,6 @@ export default function ServiceAccordion({ fieldValues }) {
 
   return (
     <>
-      <ImplementationTopHeader fieldValues={fieldValues} />
       <VisualGraphic
         className={styles.rightVisualDesktop}
         right_image={right_image}
@@ -243,6 +241,7 @@ export default function ServiceAccordion({ fieldValues }) {
         logoImage={activeLogoImage}
         logoStyle={activeLogoStyle}
       />
+
       <h2 className={styles.heading}>{renderHeadingText(heading)}</h2>
 
       <div className={styles.layout}>
